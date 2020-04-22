@@ -6,6 +6,7 @@
     <title>@ViewData["Title"] - Labb1</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/product.css" />
 </head>
 <body>
     <header>
@@ -20,11 +21,17 @@
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Hem</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Index">Produkter</a>
                         </li>
+                        <li>
+                            <a asp-action="Index" asp-controller="Cart" class="btn btn-success" id="cartbutton"></a>
+                        </li>
+                        @*<li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </li>*@
                     </ul>
                 </div>
             </div>

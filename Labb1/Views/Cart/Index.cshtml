@@ -1,0 +1,65 @@
+﻿@model Labb1.ViewModels.CartViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Din kundkorg</h1>
+
+
+@*<p>
+    <a asp-action="Create">Create New</a>
+</p>*@
+
+<h3>Aktuella produkter</h3>
+<table cellpadding="2" cellspacing="2" border="1" style="text-align:center">
+    <tr>
+        <th>Produkt</th>
+        <th>Pris</th>
+        <th>Antal</th>
+        <th>Total</th>
+    </tr>
+    <tbody>
+
+        @*@foreach (var item in ViewBag.cart) {*@
+                    <tr>
+                        <td>
+                            Produkt
+                        </td>
+                        <td>
+                            Pris
+                        </td>
+                        <td>
+                            Antal
+                        </td>
+                        <td>
+                            Total
+                        </td>
+                        @*<td>
+                            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                        </td>*@
+                    </tr>
+            @*}*@
+        @foreach (var item in ViewBag.cart)
+        {
+            <tr>
+                @*<td><a asp-controller="cart" asp-action="remove" asp-route-id="@item.Product.Id">Remove</a></td>*@
+                @*<td>@item.Product.Id</td>*@
+                <td>@item.Product.Name</td>
+                @*<td><img src="~/images/@item.Product.Photo" width="60" /> </td>*@
+                <td>@item.Product.Price</td>
+                <td>@item.Quantity</td>
+                <td>@(item.Product.Price * item.Quantity)</td>
+            </tr>
+        }
+        <tr>
+            <td align="right" colspan="6">Sum</td>
+            <td>
+                @ViewBag.total
+            </td>
+        </tr>
+
+    </tbody>
+</table>
