@@ -12,8 +12,6 @@ namespace Labb1.ProjectData
 
         public Dummy(/*List<Product> products*/)
         {
-
-            
             List<Product> products = new List<Product>();
             Products = products;
             Product product = new Product()

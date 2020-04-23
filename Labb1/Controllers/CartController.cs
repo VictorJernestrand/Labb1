@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Labb1.Helpers;
 using Labb1.Models;
+using Labb1.ProjectData;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
@@ -12,6 +14,7 @@ namespace Labb1.Controllers
     public class CartController : Controller
     {
         private string _cartCookie;
+        
         public CartController(IConfiguration config)
         {
             this._cartCookie = config["CartSessionCookie:Name"];
@@ -33,11 +36,66 @@ namespace Labb1.Controllers
             //}
             //return View();
 
+            //-----------------------------------------------------------
 
-            var cart = SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart");
-            ViewBag.cart = cart;
-            ViewBag.total = cart.Sum(cartItem => cartItem.Product.Price * cartItem.Quantity);
-            return View();
+            //if (HttpContext.Session.GetString(_cartCookie) != null)
+            //{
+            //    var customerCartId = HttpContext.Session.GetString(_cartCookie);
+            //    Guid cartId = Guid.Parse(customerCartId);
+            //    Dummy dummyData = new Dummy();
+
+            //    return View(result);
+            //}
+
+            //return View();
+
+
+
+            //------------------------------------------------------
+
+            
+
+            if (SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart") != null)
+            {
+                var cart = SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart");
+                //ViewBag.cart = cart;
+
+                ViewBag.total = cart.Sum(cartItem => cartItem.Product.Price * cartItem.Quantity);
+                return View(cart);
+            }
+
+            else
+            {
+                return View();
+            }
+
+            //if (total == 0)
+            //{
+            //    return View();
+            //}
+
+            //else
+            //{
+            //    return Redirect(Request.Path.ToString());
+            //}
+
+            //}
+            //    var test = cart.Select(x => new CartItem
+            //{
+            //    Product = x.Product,
+            //    Quantity = x.Quantity
+            //}).ToList();
+            
+            //else
+            //{
+            //   return RedirectToAction("Index", "Product");
+            //}
+            
+        }
+
+        private static decimal TotalCost(int quantity, decimal price)
+        {
+            return price * quantity;
         }
     }
 }

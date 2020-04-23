@@ -15,12 +15,12 @@ namespace Labb1.Controllers
 {
     public class ProductController : Controller
     {
-        private string _cartSessionCookie;
+        private string _cartCookie;
         public string ShoppingCartId { get; set; }
         public const string CartSessionKey = "CartId";
         public ProductController(IConfiguration config)
         {
-            this._cartSessionCookie = config["CartSessionCookie:Name"];
+            this._cartCookie = config["CartSessionCookie:Name"];
         }
         public IActionResult Index()
         {
@@ -93,8 +93,45 @@ namespace Labb1.Controllers
         //}
         public IActionResult AddToCart(int id)
         {
+            //Guid guid = new Guid();
 
-            //Product product = new Product();
+            ////Product product = new Product();
+            //Dummy dummyData = new Dummy();
+
+            //if (HttpContext.Session.GetString(_cartCookie) == null)
+            //    HttpContext.Session.SetString(_cartCookie, guid.ToString());
+            //Cart newCart = new Cart()
+            //{
+            //    CartId = Guid.Parse(HttpContext.Session.GetString(_cartCookie)),
+            //    ProductId = id,
+            //    Amount = 1
+            //};
+
+            //Product product = dummyData.Products.Find(x => x.Id == newCart.ProductId);
+            //Guid cartId = newCart.CartId;
+
+            //List<Cart> carts = new List<Cart>();
+            //carts.Add(newCart);
+
+            //var cartItem = carts.Find(x => x.CartId == cartId && x.ProductId == product.Id);
+
+            //if (cartItem != null)
+            //{
+            //    cartItem.Amount++;
+            //}
+            //else
+            //{
+            //    newCart = new Cart()
+            //    {
+            //        CartId = cartId,
+            //        ProductId = newCart.ProductId,
+            //        Amount = 1
+            //    };
+            //}
+
+
+            //--------------------------------------------------------------------------
+
             Dummy dummyData = new Dummy();
 
             if (SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart") == null)
@@ -108,7 +145,6 @@ namespace Labb1.Controllers
                 List<CartItem> cart = SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart");
 
                 int index = cart.FindIndex(f => f.Product.Id == id);
-                //if (index >= 0)
                 if (index != -1)
                 {
                     cart[index].Quantity++;
