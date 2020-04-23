@@ -16,7 +16,7 @@ namespace Labb1.ProjectData
             Products = products;
             Product product = new Product()
             {
-                Id = 1,
+                Id = 1, 
                 //Guid.NewGuid()
                 Name = "Ahlgrens bilar",
                 Description = "Klassiker",
