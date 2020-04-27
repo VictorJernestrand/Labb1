@@ -1,5 +1,5 @@
-﻿@model IEnumerable<Labb1.Models.CartItem>
-@*Labb1.ViewModels.CartViewModel*@
+﻿@model  Labb1.ViewModels.CartViewModel
+@*IEnumerable<Labb1.Models.CartItem>*@
 
 @{
     ViewData["Title"] = "Index";
@@ -14,7 +14,7 @@
 
 <h3>Aktuella produkter</h3>
 <table cellpadding="2" cellspacing="2" border="1" style="text-align:center">
-    @if (Model != null && Model.Count() > 0)
+    @if (Model != null && Model.CartItems.Count() > 0)
     {
         <tr>
             <th>Produkt</th>
@@ -46,7 +46,7 @@
             </tr>
             @*}*@
 
-            @foreach (var item in Model)
+            @foreach (var item in Model.CartItems)
             {
                 <tr>
                     @*<td><a asp-controller="cart" asp-action="remove" asp-route-id="@item.Product.Id">Remove</a></td>*@
@@ -57,14 +57,15 @@
                     <td>@item.Quantity</td>
                     <td>@(item.Product.Price * item.Quantity)</td>
                 </tr>
+
             }
             <tr>
                 <td align="right" colspan="6">Sum</td>
                 <td>
-                    @ViewBag.total
+                    @Model.TotalPrice
                 </td>
             </tr>
-            
+
 
 
         </tbody>
