@@ -7,6 +7,7 @@ using Labb1.Models;
 using Labb1.ProjectData;
 using Labb1.ViewModels;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
@@ -15,10 +16,12 @@ namespace Labb1.Controllers
     public class CartController : Controller
     {
         private string _cartCookie;
-        
-        public CartController(IConfiguration config)
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public CartController(/*IConfiguration config*/UserManager<ApplicationUser> userManager)
         {
-            this._cartCookie = config["CartSessionCookie:Name"];
+            //this._cartCookie = config["CartSessionCookie:Name"];
+            _userManager = userManager;
         }
         [Route("cart")]
         public IActionResult Index()
