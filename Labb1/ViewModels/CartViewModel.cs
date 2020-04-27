@@ -9,7 +9,8 @@ namespace Labb1.ViewModels
     public class CartViewModel
     {
         //public Guid Id { get; set; }
-        public List<(int amount, Product product)> Products { get; set; }
+        //public List<(int amount, Product product)> Products { get; set; }
+        public List<CartItem> CartItems { get; set; }
         public decimal TotalPrice { get; set; }
     }
 }

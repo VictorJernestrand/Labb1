@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Labb1.Helpers;
 using Labb1.Models;
 using Labb1.ProjectData;
+using Labb1.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -60,8 +61,13 @@ namespace Labb1.Controllers
                 var cart = SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart");
                 //ViewBag.cart = cart;
 
-                ViewBag.total = cart.Sum(cartItem => cartItem.Product.Price * cartItem.Quantity);
-                return View(cart);
+                //ViewBag.total = cart.Sum(cartItem => cartItem.Product.Price * cartItem.Quantity);
+
+                CartViewModel cartViewModel = new CartViewModel();
+                cartViewModel.CartItems = cart;
+                cartViewModel.TotalPrice = cart.Sum(cartItem => cartItem.Product.Price * cartItem.Quantity);
+
+                return View(cartViewModel);
             }
 
             else
