@@ -12,6 +12,8 @@ using Labb1.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Labb1.Models;
 
 namespace Labb1
 {
@@ -30,13 +32,28 @@ namespace Labb1
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+                options.Cookie.Name = "YourAppCookieName";
+                options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+                options.LoginPath = "/Identity/Account/Login";
+                // ReturnUrlParameter requires 
+                //using Microsoft.AspNetCore.Authentication.Cookies;
+                options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
+                options.SlidingExpiration = true;
+            });
+            services.AddHttpContextAccessor();
+            services.AddSession();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline. 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -57,6 +74,8 @@ namespace Labb1
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {
