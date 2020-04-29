@@ -10,7 +10,7 @@ namespace Labb1.ViewModels
     {
         public CartTotal(Product product)
         {
-            Id = product.Id;
+            //Id = Guid.Parse(product.Id);
             Name = product.Name;
             Price = product.Price;
 
