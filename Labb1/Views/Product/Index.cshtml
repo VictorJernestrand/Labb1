@@ -2,54 +2,89 @@
 
 <h1>Produkter</h1>
 
-<p>
+@*<p>
     <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Produkt
-            </th>
-            <th>
-                Beskrivning
-            </th>
-            <th>
-                Pris
-            </th>
-            <th>
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @item.Name
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @item.Price.ToString("C0")
-            </td>
-            <td>
-                @*<img class="product-image" src="@item.ImageURL" alt="@item.Name" />*@
-                <div class="thumbnail" style="background-image: url('@item.ImageURL');">
+</p>*@
+<div id="product-detail"class="row d-flex flex-row justify-content-around align-content-around flex-wrap">
+    @foreach (var item in Model)
+    {
+        <div class="card flex-grow-0 flex-shrink-1-m" style="position: relative; margin-bottom:20px">
+            <div class="row no-gutters">
+                <div class="col-auto">
+                    <div class="thumbnail" style="background-image: url('@item.ImageURL');"></div>
                 </div>
-            </td>
-            <td>
-                @*@Html.ActionLink("Lägg till i varukorg", "AddToCart", "Products", new { id = item.Id })*@
-                @*<button class="btn add-to-cart" onclick="AddToCart(@item.Id)">Köp skiten!</button>*@
-                <a asp-controller="Product" asp-action="AddToCart" asp-route-id="@item.Id">Köp</a>
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+                @*<div class="col" style="max-width: 150px; min-width: 150px">*@
+                    <div class="card-block px-2" style="max-width: 150px; min-width: 150px; margin-top:10px">
+                        <h4 class="card-title">@item.Name</h4>
+                        @*<p class="card-text">@item.Description</p>*@
+                        <div class="d-inline-block" style="position: absolute; bottom: 0">
+                                <p style="display:flex">
+                                    @item.Price.ToString("C0")
+                                    <span @*class="float-right btn btn-outline-success"*@ style="margin-left: 35px">
+                                        @*<button class="btn-success" asp-controller="Product" asp-action="AddToCart" asp-route-id="@item.Id">Köp</button>*@
+                                        <a class="btn btn-success" asp-controller="Product" asp-action="AddToCart" asp-route-id="@item.Id">Köp</a>
+                                        @*@Html.ActionLink("Buy", "AddToCart", "Products", new { id = item.Id }, new { @class = "btn-btn-outline-success" })*@
+                                    </span>
+                                </p>
+                        </div>
+                    @*</div>*@
+                </div>
+            </div>
+        </div>
+    }
+    </div>
+
+
+
+
+
+
+
+    @*<table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Produkt
+                    </th>
+                    <th>
+                        Beskrivning
+                    </th>
+                    <th>
+                        Pris
+                    </th>
+                    <th>
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+        @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @item.Price.ToString("C0")
+                    </td>
+                    <td>
+                        <img class="product-image" src="@item.ImageURL" alt="@item.Name" />
+                        <div class="thumbnail" style="background-image: url('@item.ImageURL');">
+                        </div>
+                    </td>
+                    <td>
+                        @Html.ActionLink("Lägg till i varukorg", "AddToCart", "Products", new { id = item.Id })
+                        <button class="btn add-to-cart" onclick="AddToCart(@item.Id)">Köp skiten!</button>
+                        <a asp-controller="Product" asp-action="AddToCart" asp-route-id="@item.Id">Köp</a>
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    </td>
+                </tr>
+        }
+            </tbody>
+        </table>*@
