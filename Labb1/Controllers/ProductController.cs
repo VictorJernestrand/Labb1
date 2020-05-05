@@ -15,6 +15,7 @@ namespace Labb1.Controllers
 {
     public class ProductController : Controller
     {
+        private readonly Dummy _dummyData;
         private string _cartCookie;
         public string ShoppingCartId { get; set; }
         public const string CartSessionKey = "CartId";
@@ -32,6 +33,18 @@ namespace Labb1.Controllers
             //ProductViewModel allProducts = new ProductViewModel();
 
             return View(allProducts);
+        }
+
+        public IActionResult ProductDetail(int id)
+        {
+            Dummy dummyData = new Dummy();
+            var product = dummyData.Products.FirstOrDefault(x => x.Id == id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return View(product);
         }
         //public IActionResult AddToCart(Guid id)
         //{

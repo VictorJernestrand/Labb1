@@ -109,6 +109,9 @@ namespace Labb1.Areas.Identity.Pages.Account.Manage
             user.City = Input.City;
             user.Country = Input.Country;
 
+            // Saves changes
+            await _userManager.UpdateAsync(user);
+
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
             return RedirectToPage();

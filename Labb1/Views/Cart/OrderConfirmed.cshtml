@@ -1,0 +1,82 @@
+﻿@model Labb1.ViewModels.OrderViewModel
+
+@{
+    ViewData["Title"] = "OrderConfirmed";
+}
+
+<h>Tack för din order!</h>
+
+@*<p>
+    <a asp-action="Create">Create New</a>
+</p>*@
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <div>
+                    @Html.LabelFor(modelItem => modelItem.Order.OrderDate)
+                    @Model.Order.OrderDate.ToString("yyyy MMMM dd HH:mm:ss")
+
+                    @Html.DisplayFor(modelItem => modelItem.Order.OrderDate)
+                </div>
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.User.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.User.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.User.Country)
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+    <thead>
+
+
+        <tr>
+            @Html.DisplayNameFor(model => new OrderProduct().Product.Name)
+        </tr>
+        <tr>
+            @Html.DisplayNameFor(model => new OrderProduct().Product.Price)
+        </tr>
+        <tr>
+            @Html.DisplayNameFor(model => new OrderProduct().Quantity)
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.Order.OrderProducts)
+    {
+        <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Product.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Product.Price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Product.ImageURL)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Quantity)
+        </td>
+
+        @*<td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>*@
+        </tr>
+    }
+    </tbody>
+</table>
+<tfoot>
+    <tr>
+        <td>
+            @Html.LabelFor(modelItem => modelItem.Order.TotalPrice)
+            @Html.DisplayFor(modelItem => modelItem.Order.TotalPrice)
+        </td>
+    </tr>
+</tfoot>
