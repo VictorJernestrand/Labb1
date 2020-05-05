@@ -53,6 +53,66 @@ namespace Labb1.Controllers
                 return View();
             }        
         }
+        public IActionResult AddToCart(int id)
+        {
+            var cart = SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart");
+
+            CartViewModel cartViewModel = new CartViewModel();
+            cartViewModel.CartItems = cart;
+            cartViewModel.TotalPrice = cart.Sum(cartItem => cartItem.Product.Price * cartItem.Quantity);
+
+
+            
+
+            int index = cart.FindIndex(f => f.Product.Id == id);
+            if (index != -1)
+            {
+                cart[index].Quantity++;
+            }
+
+            SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
+
+            return View("Index", cartViewModel);
+        }
+        public IActionResult ReduceFromCart(int id)
+        {
+            var cart = SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart");
+
+            CartViewModel cartViewModel = new CartViewModel();
+            cartViewModel.CartItems = cart;
+            cartViewModel.TotalPrice = cart.Sum(cartItem => cartItem.Product.Price * cartItem.Quantity);
+
+
+            int index = cart.FindIndex(f => f.Product.Id == id);
+            if (index != -1)
+            {
+                cart[index].Quantity--;
+            }
+
+            SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
+
+            return View("Index", cartViewModel);
+        }
+
+        public IActionResult RemoveFromCart(int id)
+        {
+            var cart = SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart");
+
+            CartViewModel cartViewModel = new CartViewModel();
+            cartViewModel.CartItems = cart;
+            cartViewModel.TotalPrice = cart.Sum(cartItem => cartItem.Product.Price * cartItem.Quantity);
+
+
+            int index = cart.FindIndex(f => f.Product.Id == id);
+            if (index != -1)
+            {
+                cart.RemoveAt(index);
+            }
+
+            SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
+
+            return View("Index", cartViewModel);
+        }
 
         [HttpPost]
         public async Task<IActionResult> ConfirmOrder([Bind("TotalPrice, CartItems")]CartViewModel cartViewModel)
