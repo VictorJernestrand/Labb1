@@ -20,7 +20,7 @@ namespace Labb1.ProjectData
                 Description = "Wobbler, mini, grön",
                 Name = "Wobbler",
                 Price = 59.00M,
-                ImageURL = "https://contents.mediadecathlon.com/p669219/ke5d6f5a14fecb9c40ac094494f612009/669219_default.jpg?format=auto&quality=60&f=800x0"
+                ImageURL = "https://www.happyangler.se/i/hkg/022677210766_1/rapala-ultra-light-crank-3-cm-wobbler.jpg?$flyout$"
             };
             Product product2 = new Product()
             {
