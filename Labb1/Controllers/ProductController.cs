@@ -104,7 +104,7 @@ namespace Labb1.Controllers
         //        }
         //    }
         //}
-        public IActionResult AddToCart(int id)
+        public async Task<IActionResult> AddToCart(int id)
         {
             //Guid guid = new Guid();
 
