@@ -102,9 +102,12 @@ namespace Labb1.Controllers
 
                 return View("Index", cartViewModel);
             }
+
             else
             {
+
                 return NotFound();
+                
             }
         }
 
@@ -138,6 +141,7 @@ namespace Labb1.Controllers
         [HttpPost]
         public async Task<IActionResult> ConfirmOrder([Bind("TotalPrice, CartItems")]CartViewModel cartViewModel)
         {
+
             // Error handling. 
             if (SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart") != null)
             {
@@ -145,6 +149,16 @@ namespace Labb1.Controllers
                 var cart = SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart");
                 //OrderViewModel ovm = new OrderViewModel();
                 //ovm.Order.OrderProducts = cart;
+                var user = await _userManager.GetUserAsync(HttpContext.User);
+                if (String.IsNullOrEmpty(user.FirstName) || String.IsNullOrEmpty(user.FirstName) ||
+                    String.IsNullOrEmpty(user.StreetAddress) || String.IsNullOrEmpty(user.ZipCode) ||
+                    String.IsNullOrEmpty(user.City))
+                {
+                    TempData["MessageAddressInfo"] = "Vänligen fyll i ditt namn och adress innan du kan beställa";
+                    return LocalRedirect("/Identity/Account/Manage");
+                }
+                else
+                { 
 
                 // add products in order for each product in cart
                 var orderProducts = cart.Select(x => new OrderProduct
@@ -156,7 +170,7 @@ namespace Labb1.Controllers
 
                 // Get the user
                 //var userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-                var user = await _userManager.GetUserAsync(HttpContext.User);
+                //var user = await _userManager.GetUserAsync(HttpContext.User);
 
                 // Create new order
 
@@ -215,6 +229,7 @@ namespace Labb1.Controllers
                 HttpContext.Session.Remove("cart");
 
                 return View("OrderConfirmed", orderViewModel);
+                }
             }
             else
             {
