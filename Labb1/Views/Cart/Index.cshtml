@@ -63,7 +63,7 @@
                     @*<td><a asp-controller="cart" asp-action="remove" asp-route-id="@item.Product.Id">Remove</a></td>*@
                     @*<td>@item.Product.Id</td>*@
                     <td style="border-right: none; border-bottom: none">
-                        <a asp-action="RemoveFromCart" asp-controller="Cart" class="fas fa-trash-alt" asp-route-id="@item.Product.Id" style="text-decoration: none;"></a>
+                        <a asp-action="RemoveFromCart" asp-controller="Cart" class="fas fa-trash-alt" asp-route-id="@item.Product.Id" style="text-decoration: none; color: red"></a>
                        
                     </td>
 
@@ -78,15 +78,16 @@
 
                 </tbody>
             </table>
-        <div style="margin-bottom:70px; float: right">
-            <div style="margin-bottom: 10px">
-                <span><b>Summa&nbsp;</b></span>
-                <span>@Model.TotalPrice.ToString("C0")</span>
+
+            <div style="margin-bottom:70px; float: right">
+                <div style="margin-bottom: 10px">
+                    <span><b>Summa&nbsp;</b></span>
+                    <span>@Model.TotalPrice.ToString("C0")</span>
+                </div>
+                <div style="float:right">
+                    <input type="submit" class="btn btn-success" value="Betala" />
+                </div>
             </div>
-            <div style="float:right">
-                <input type="submit" class="btn btn-success" value="Betala" />
-            </div>
-        </div>
 
 
 
@@ -94,7 +95,6 @@
                 <tr>
                     <td>
                         @Html.HiddenFor(modelItem => Model.CartItems)
-                        @*@Html.HiddenFor(modelitem => Model.TotalPrice)*@
                         @Html.HiddenFor(modelItem => Model.TotalPrice)
                     </td>
                 </tr>

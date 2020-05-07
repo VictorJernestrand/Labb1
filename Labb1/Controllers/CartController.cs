@@ -55,63 +55,84 @@ namespace Labb1.Controllers
         }
         public IActionResult AddToCart(int id)
         {
-            var cart = SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart");
-
-            CartViewModel cartViewModel = new CartViewModel();
-            cartViewModel.CartItems = cart;
-            cartViewModel.TotalPrice = cart.Sum(cartItem => cartItem.Product.Price * cartItem.Quantity);
-
-
-            
-
-            int index = cart.FindIndex(f => f.Product.Id == id);
-            if (index != -1)
+            if (SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart") != null)
             {
-                cart[index].Quantity++;
+                var cart = SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart");
+
+                CartViewModel cartViewModel = new CartViewModel();
+                cartViewModel.CartItems = cart;
+                cartViewModel.TotalPrice = cart.Sum(cartItem => cartItem.Product.Price * cartItem.Quantity);
+
+
+
+
+                int index = cart.FindIndex(f => f.Product.Id == id);
+                if (index != -1)
+                {
+                    cart[index].Quantity++;
+                }
+
+                SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
+
+                return View("Index", cartViewModel);
             }
-
-            SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
-
-            return View("Index", cartViewModel);
+            else
+            {
+                return NotFound();
+            }
         }
         public IActionResult ReduceFromCart(int id)
         {
-            var cart = SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart");
-
-            CartViewModel cartViewModel = new CartViewModel();
-            cartViewModel.CartItems = cart;
-            cartViewModel.TotalPrice = cart.Sum(cartItem => cartItem.Product.Price * cartItem.Quantity);
-
-
-            int index = cart.FindIndex(f => f.Product.Id == id);
-            if (index != -1)
+            if (SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart") != null)
             {
-                cart[index].Quantity--;
+                var cart = SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart");
+
+                CartViewModel cartViewModel = new CartViewModel();
+                cartViewModel.CartItems = cart;
+                cartViewModel.TotalPrice = cart.Sum(cartItem => cartItem.Product.Price * cartItem.Quantity);
+
+
+                int index = cart.FindIndex(f => f.Product.Id == id);
+                if (index != -1)
+                {
+                    cart[index].Quantity--;
+                }
+
+                SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
+
+                return View("Index", cartViewModel);
             }
-
-            SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
-
-            return View("Index", cartViewModel);
+            else
+            {
+                return NotFound();
+            }
         }
 
         public IActionResult RemoveFromCart(int id)
         {
-            var cart = SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart");
-
-            CartViewModel cartViewModel = new CartViewModel();
-            cartViewModel.CartItems = cart;
-            cartViewModel.TotalPrice = cart.Sum(cartItem => cartItem.Product.Price * cartItem.Quantity);
-
-
-            int index = cart.FindIndex(f => f.Product.Id == id);
-            if (index != -1)
+            if (SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart") != null)
             {
-                cart.RemoveAt(index);
+                var cart = SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart");
+
+                CartViewModel cartViewModel = new CartViewModel();
+                cartViewModel.CartItems = cart;
+                cartViewModel.TotalPrice = cart.Sum(cartItem => cartItem.Product.Price * cartItem.Quantity);
+
+
+                int index = cart.FindIndex(f => f.Product.Id == id);
+                if (index != -1)
+                {
+                    cart.RemoveAt(index);
+                }
+
+                SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
+
+                return View("Index", cartViewModel);
             }
-
-            SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
-
-            return View("Index", cartViewModel);
+            else
+            {
+                return NotFound();
+            }
         }
 
         [HttpPost]
