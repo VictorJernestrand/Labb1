@@ -117,80 +117,88 @@ namespace Labb1.Controllers
         [HttpPost]
         public async Task<IActionResult> ConfirmOrder([Bind("TotalPrice, CartItems")]CartViewModel cartViewModel)
         {
-            // get the cart from session
-            var cart = SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart");
-            //OrderViewModel ovm = new OrderViewModel();
-            //ovm.Order.OrderProducts = cart;
-
-            // add products in order for each product in cart
-            var orderProducts = cart.Select(x => new OrderProduct
+            // Error handling. 
+            if (SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart") != null)
             {
-                Product = x.Product,
-                Quantity = x.Quantity
-            }).ToList();
+                // get the cart from session
+                var cart = SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart");
+                //OrderViewModel ovm = new OrderViewModel();
+                //ovm.Order.OrderProducts = cart;
+
+                // add products in order for each product in cart
+                var orderProducts = cart.Select(x => new OrderProduct
+                {
+                    Product = x.Product,
+                    Quantity = x.Quantity
+                }).ToList();
 
 
-            // Get the user
-            //var userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var user = await _userManager.GetUserAsync(HttpContext.User);
+                // Get the user
+                //var userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                var user = await _userManager.GetUserAsync(HttpContext.User);
 
-            // Create new order
-
-
-            //var orderProds = from item in cartViewModel.CartItems
-            //                 select new OrderProduct
-            //                 {
-            //                     Product = item.Product,
-            //                     Quantity = item.Quantity
-            //                 };
-
-            //List<OrderProduct> prods = orderProds.ToList();
+                // Create new order
 
 
-            //List<OrderProduct> productList = new List<OrderProduct>();
+                //var orderProds = from item in cartViewModel.CartItems
+                //                 select new OrderProduct
+                //                 {
+                //                     Product = item.Product,
+                //                     Quantity = item.Quantity
+                //                 };
+
+                //List<OrderProduct> prods = orderProds.ToList();
 
 
-            OrderViewModel orderViewModel = new OrderViewModel();
-
-            Order order = new Order();
-            order.OrderDate = DateTime.Now;
-            order.UserId = Guid.Parse(_userManager.GetUserId(User));
+                //List<OrderProduct> productList = new List<OrderProduct>();
 
 
-            //Order order = new Order()
-            //{
-            //    UserId = Guid.Parse(_userManager.GetUserId(User)),
-            //    OrderProducts = orderProducts,
-            //    TotalPrice = cartViewModel.TotalPrice
-            //};
-            //orderViewModel.Order = order;
-            //orderViewModel.User = user;
+                OrderViewModel orderViewModel = new OrderViewModel();
+
+                Order order = new Order();
+                order.OrderDate = DateTime.Now;
+                order.UserId = Guid.Parse(_userManager.GetUserId(User));
 
 
-
-
-            //foreach (var item in cartViewModel.CartItems)
-            //{
-            //    order.OrderProducts.Add((OrderProduct)item);
-            //}
-            orderViewModel.Order = order;
-            orderViewModel.User = user;
-            orderViewModel.Order.OrderProducts = orderProducts;
-            orderViewModel.Order.TotalPrice = cartViewModel.TotalPrice;
+                //Order order = new Order()
+                //{
+                //    UserId = Guid.Parse(_userManager.GetUserId(User)),
+                //    OrderProducts = orderProducts,
+                //    TotalPrice = cartViewModel.TotalPrice
+                //};
+                //orderViewModel.Order = order;
+                //orderViewModel.User = user;
 
 
 
-            //OrderViewModel orderViewModel = new OrderViewModel()
-            //{
-            //    Order = order,
-            //    //Order = order,
-            //    User = user
-            //};
 
-            // Clear cart session
-            HttpContext.Session.Remove("cart");
+                //foreach (var item in cartViewModel.CartItems)
+                //{
+                //    order.OrderProducts.Add((OrderProduct)item);
+                //}
+                orderViewModel.Order = order;
+                orderViewModel.User = user;
+                orderViewModel.Order.OrderProducts = orderProducts;
+                orderViewModel.Order.TotalPrice = cartViewModel.TotalPrice;
 
-            return View("OrderConfirmed", orderViewModel);
+
+
+                //OrderViewModel orderViewModel = new OrderViewModel()
+                //{
+                //    Order = order,
+                //    //Order = order,
+                //    User = user
+                //};
+
+                // Clear cart session
+                HttpContext.Session.Remove("cart");
+
+                return View("OrderConfirmed", orderViewModel);
+            }
+            else
+            {
+                return NotFound();
+            }
         }
         //[HttpGet]
         //public IActionResult OrderConfirmed(OrderViewModel orderViewModel)

@@ -11,7 +11,6 @@
         <a asp-action="Create">Create New</a>
     </p>*@
 
-<h3>Aktuella produkter</h3>
 
 @if (Model != null && Model.CartItems.Count() > 0)
 {
@@ -20,13 +19,14 @@
     {
 
         <table class="table table-responsive-xs table-responsive-sm table-borderless  mx-auto" @*cellpadding="2" cellspacing="2" border="1" style="text-align:center; "*@>
-            <tr id="cartHead">
-                <th></th>
-                <th>Produkt</th>
-                <th>Pris</th>
-                <th>Antal</th>
-                <th>Total</th>
-            </tr>
+            <thead>
+                <tr id="cartHead">
+                    <th></th>
+                    <th>Produkt</th>
+                    <th>Pris</th>
+                    <th>Antal</th>
+                </tr>
+            </thead>
             <tbody>
 
                 @foreach (var item in Model.CartItems)
@@ -67,23 +67,28 @@
 
                 </tr>
             }
-                <tr>
-                    <td align="right" colspan="6">Sum</td>
-                    <td>
-                        @Html.DisplayFor(modelItem => modelItem.TotalPrice)
+                @*<tr>
+                    <td align="right" colspan="6" >
+                        <span><b>Summa&nbsp;</b></span>
+                        <span>@Model.TotalPrice.ToString("C0")</span>
                     </td>
-                </tr>
+                </tr>*@
 
                 </tbody>
             </table>
-            <div style="margin-bottom:45px">
-                <input type="submit" class="float-right btn btn-success" value="Place Order" />
+        <div style="margin-bottom:70px; float: right">
+            <div style="margin-bottom: 10px">
+                <span><b>Summa&nbsp;</b></span>
+                <span>@Model.TotalPrice.ToString("C0")</span>
             </div>
-            <tfoot class="table table-responsive-xs table-responsive-sm table-borderless  mx-auto">
+            <input type="submit" class="btn btn-success" value="Place Order" />
+        </div>
+            <tfoot class="table table-responsive-xs table-responsive-sm table-borderless mx-auto">
                 <tr>
                     <td>
                         @Html.HiddenFor(modelItem => Model.CartItems)
-                        @Html.HiddenFor(modelitem => Model.TotalPrice)
+                        @*@Html.HiddenFor(modelitem => Model.TotalPrice)*@
+                        @Html.HiddenFor(modelItem => Model.TotalPrice)
                     </td>
                 </tr>
             </tfoot>
