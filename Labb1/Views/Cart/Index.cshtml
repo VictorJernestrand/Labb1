@@ -57,7 +57,7 @@
                             @*<button onclick="location.href='@Url.Action("ReduceFromCart", "Cart", @item.Product.Id)';return false;" type="button"><i class="fas fa-minus-circle"></i></button>*@
                         }
                         &nbsp;@Html.DisplayFor(modelItem => item.Quantity)&nbsp;
-                        <a asp-action="AddToCart" asp-controller="Cart" class="fas fa-plus" asp-route-id="@item.Product.Id" style="text-decoration: none;"></a>
+                        <a asp-action="IncreaseInCart" asp-controller="Cart" class="fas fa-plus" asp-route-id="@item.Product.Id" style="text-decoration: none;"></a>
                     </td>
 
                     @*<td><a asp-controller="cart" asp-action="remove" asp-route-id="@item.Product.Id">Remove</a></td>*@

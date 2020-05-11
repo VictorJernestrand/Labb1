@@ -42,7 +42,7 @@ namespace Labb1.Controllers
                 return View();
             }        
         }
-        public async Task<IActionResult> AddToCart(int id)
+        public async Task<IActionResult> IncreaseInCart(int id)
         {
             if (await SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart") != null)
             {
