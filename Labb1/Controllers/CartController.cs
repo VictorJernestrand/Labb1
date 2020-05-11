@@ -31,106 +31,69 @@ namespace Labb1.Controllers
         // Authorize so only logged in users can access shopping cart
         [Authorize]
         [Route("cart")]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            if (SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart") != null)
+            if (await SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart") != null)
             {
-                var cart = SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart");
-                //ViewBag.cart = cart;
-
-                //ViewBag.total = cart.Sum(cartItem => cartItem.Product.Price * cartItem.Quantity);
-
-                CartViewModel cartViewModel = new CartViewModel();
-                //cartViewModel.Id = Guid.NewGuid();
-                cartViewModel.CartItems = cart;
-                cartViewModel.TotalPrice = cart.Sum(cartItem => cartItem.Product.Price * cartItem.Quantity);
-
-                return View(cartViewModel);
+                return View(await ShowCart());
             }
-
             else
             {
                 return View();
             }        
         }
-        public IActionResult AddToCart(int id)
+        public async Task<IActionResult> AddToCart(int id)
         {
-            if (SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart") != null)
+            if (await SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart") != null)
             {
-                var cart = SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart");
-
-                CartViewModel cartViewModel = new CartViewModel();
-                cartViewModel.CartItems = cart;
-                cartViewModel.TotalPrice = cart.Sum(cartItem => cartItem.Product.Price * cartItem.Quantity);
-
-
-
-
+                var cart = await SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart");
                 int index = cart.FindIndex(f => f.Product.Id == id);
                 if (index != -1)
                 {
                     cart[index].Quantity++;
                 }
-
                 SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
 
-                return View("Index", cartViewModel);
+                return RedirectToAction("Index");
             }
             else
             {
                 return NotFound();
             }
         }
-        public IActionResult ReduceFromCart(int id)
+        public async Task<IActionResult> ReduceFromCart(int id)
         {
-            if (SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart") != null)
+            if (await SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart") != null)
             {
-                var cart = SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart");
-
-                CartViewModel cartViewModel = new CartViewModel();
-                cartViewModel.CartItems = cart;
-                cartViewModel.TotalPrice = cart.Sum(cartItem => cartItem.Product.Price * cartItem.Quantity);
-
-
+                var cart = await SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart");             
                 int index = cart.FindIndex(f => f.Product.Id == id);
                 if (index != -1)
                 {
                     cart[index].Quantity--;
                 }
-
                 SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
 
-                return View("Index", cartViewModel);
+                return RedirectToAction("Index");
             }
-
             else
             {
-
-                return NotFound();
-                
+                return NotFound();               
             }
         }
 
-        public IActionResult RemoveFromCart(int id)
+        public async Task<IActionResult> RemoveFromCart(int id)
         {
-            if (SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart") != null)
+            if (await SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart") != null)
             {
-                var cart = SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart");
-
-                CartViewModel cartViewModel = new CartViewModel();
-                cartViewModel.CartItems = cart;
-                cartViewModel.TotalPrice = cart.Sum(cartItem => cartItem.Product.Price * cartItem.Quantity);
-
-
+                var cart = await SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart");
                 int index = cart.FindIndex(f => f.Product.Id == id);
                 if (index != -1)
                 {
                     cart.RemoveAt(index);
                 }
-
                 SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
 
-                return View("Index", cartViewModel);
+                return RedirectToAction("Index");
             }
             else
             {
@@ -141,12 +104,11 @@ namespace Labb1.Controllers
         [HttpPost]
         public async Task<IActionResult> ConfirmOrder([Bind("TotalPrice, CartItems")]CartViewModel cartViewModel)
         {
-
             // Error handling. 
-            if (SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart") != null)
+            if (await SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart") != null)
             {
                 // get the cart from session
-                var cart = SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart");
+                var cart = await SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart");
                 //OrderViewModel ovm = new OrderViewModel();
                 //ovm.Order.OrderProducts = cart;
                 var user = await _userManager.GetUserAsync(HttpContext.User);
@@ -159,14 +121,12 @@ namespace Labb1.Controllers
                 }
                 else
                 { 
-
                 // add products in order for each product in cart
                 var orderProducts = cart.Select(x => new OrderProduct
                 {
                     Product = x.Product,
                     Quantity = x.Quantity
                 }).ToList();
-
 
                 // Get the user
                 //var userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
@@ -189,29 +149,29 @@ namespace Labb1.Controllers
 
 
                 OrderViewModel orderViewModel = new OrderViewModel();
+                    Order order = new Order
+                    {
+                        OrderDate = DateTime.Now,
+                        UserId = Guid.Parse(_userManager.GetUserId(User))
+                    };
 
-                Order order = new Order();
-                order.OrderDate = DateTime.Now;
-                order.UserId = Guid.Parse(_userManager.GetUserId(User));
-
-
-                //Order order = new Order()
-                //{
-                //    UserId = Guid.Parse(_userManager.GetUserId(User)),
-                //    OrderProducts = orderProducts,
-                //    TotalPrice = cartViewModel.TotalPrice
-                //};
-                //orderViewModel.Order = order;
-                //orderViewModel.User = user;
-
-
+                    //Order order = new Order()
+                    //{
+                    //    UserId = Guid.Parse(_userManager.GetUserId(User)),
+                    //    OrderProducts = orderProducts,
+                    //    TotalPrice = cartViewModel.TotalPrice
+                    //};
+                    //orderViewModel.Order = order;
+                    //orderViewModel.User = user;
 
 
-                //foreach (var item in cartViewModel.CartItems)
-                //{
-                //    order.OrderProducts.Add((OrderProduct)item);
-                //}
-                orderViewModel.Order = order;
+
+
+                    //foreach (var item in cartViewModel.CartItems)
+                    //{
+                    //    order.OrderProducts.Add((OrderProduct)item);
+                    //}
+                    orderViewModel.Order = order;
                 orderViewModel.User = user;
                 orderViewModel.Order.OrderProducts = orderProducts;
                 orderViewModel.Order.TotalPrice = cartViewModel.TotalPrice;
@@ -243,9 +203,15 @@ namespace Labb1.Controllers
         //    return View(orderViewModel);
         //}
 
-        private static decimal TotalCost(int quantity, decimal price)
+        public async Task<CartViewModel> ShowCart()
         {
-            return price * quantity;
+            var cart = await SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart");
+            CartViewModel cartViewModel = new CartViewModel
+            {
+                CartItems = cart,
+                TotalPrice = cart.Sum(cartItem => cartItem.Product.Price * cartItem.Quantity)
+            };
+            return cartViewModel;
         }
     }
 }
