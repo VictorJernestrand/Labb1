@@ -15,7 +15,7 @@ namespace Labb1.Controllers
 {
     public class ProductController : Controller
     {
-        private Dummy _dummyData;
+        private readonly Dummy _dummyData;
         private string _cartCookie;
         public string ShoppingCartId { get; set; }
         public const string CartSessionKey = "CartId";

@@ -58,16 +58,17 @@
     border-bottom-color: #f00; /* Red */
 /*}*/
 @media only screen and (max-width: 450px) {
-    .card-body {
-
-    }
-    .card-title {
-
-
-    }
+    
     .card {
         max-height: 100%;
         overflow-y:scroll;
 
     }
+    .button-text {
+        display: none;
+    }
 }
+
+
+
+
