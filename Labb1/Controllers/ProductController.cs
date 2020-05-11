@@ -105,9 +105,9 @@ namespace Labb1.Controllers
         //        }
         //    }
         //}
-        public IActionResult AddToCart(int id)
+        public async Task<IActionResult> AddToCart(int id)
         {
-            if (SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart") == null)
+            if (await SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart") == null)
             {
                 List<CartItem> cart = new List<CartItem>();
                 cart.Add(new CartItem { Product = _dummyData.Products.Find(x => x.Id == id), Quantity = 1 });
@@ -115,7 +115,7 @@ namespace Labb1.Controllers
             }
             else
             {
-                List<CartItem> cart = SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart");
+                List<CartItem> cart = await SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart");
 
                 int index = cart.FindIndex(f => f.Product.Id == id);
                 if (index != -1)
