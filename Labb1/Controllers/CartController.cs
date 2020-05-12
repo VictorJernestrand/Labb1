@@ -109,6 +109,11 @@ namespace Labb1.Controllers
             {
                 // get the cart from session
                 var cart = await SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart");
+
+
+
+
+
                 //OrderViewModel ovm = new OrderViewModel();
                 //ovm.Order.OrderProducts = cart;
                 var user = await _userManager.GetUserAsync(HttpContext.User);
@@ -120,35 +125,46 @@ namespace Labb1.Controllers
                     return LocalRedirect("/Identity/Account/Manage");
                 }
                 else
-                { 
-                // add products in order for each product in cart
-                var orderProducts = cart.Select(x => new OrderProduct
+                {
+
+                    // Add products in order for each product in cart
+                    var orderProducts = cart.Select(x => new OrderProduct
                 {
                     Product = x.Product,
                     Quantity = x.Quantity
                 }).ToList();
 
-                // Get the user
-                //var userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-                //var user = await _userManager.GetUserAsync(HttpContext.User);
-
-                // Create new order
-
-
-                //var orderProds = from item in cartViewModel.CartItems
-                //                 select new OrderProduct
-                //                 {
-                //                     Product = item.Product,
-                //                     Quantity = item.Quantity
-                //                 };
-
-                //List<OrderProduct> prods = orderProds.ToList();
+                    // Remove all products in cart where quantity is 0
+                    var itemsToRemove = from items in orderProducts
+                                        where items.Quantity == 0
+                                        select items;
+                    foreach (var item in itemsToRemove.ToList())
+                    {
+                        orderProducts.Remove(item); 
+                    }
 
 
-                //List<OrderProduct> productList = new List<OrderProduct>();
+                    // Get the user
+                    //var userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                    //var user = await _userManager.GetUserAsync(HttpContext.User);
+
+                    // Create new order
 
 
-                OrderViewModel orderViewModel = new OrderViewModel();
+                    //var orderProds = from item in cartViewModel.CartItems
+                    //                 select new OrderProduct
+                    //                 {
+                    //                     Product = item.Product,
+                    //                     Quantity = item.Quantity
+                    //                 };
+
+                    //List<OrderProduct> prods = orderProds.ToList();
+
+
+                    //List<OrderProduct> productList = new List<OrderProduct>();
+
+
+                    OrderViewModel orderViewModel = new OrderViewModel();
                     Order order = new Order
                     {
                         OrderDate = DateTime.Now,
@@ -171,12 +187,14 @@ namespace Labb1.Controllers
                     //{
                     //    order.OrderProducts.Add((OrderProduct)item);
                     //}
+
+
                     orderViewModel.Order = order;
                 orderViewModel.User = user;
                 orderViewModel.Order.OrderProducts = orderProducts;
                 orderViewModel.Order.TotalPrice = cartViewModel.TotalPrice;
 
-
+                  
 
                 //OrderViewModel orderViewModel = new OrderViewModel()
                 //{
