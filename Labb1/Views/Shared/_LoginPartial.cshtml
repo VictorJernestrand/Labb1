@@ -16,12 +16,13 @@
 }
 else
 {
-<li class="nav-item">
-    <a class="btn btn-outline-info log-btn" asp-area="Identity" asp-page="/Account/Register">Register</a>
-</li>
-    
+<div id="user-buttons">
     <li class="nav-item">
-        <a class="btn btn-outline-info log-btn" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        <a id="logIn"class="btn btn-outline-info log-btn buttons" asp-area="Identity" asp-page="/Account/Login">Login</a>
     </li>
+    <li class="nav-item">
+        <a class="btn btn-outline-info log-btn buttons" asp-area="Identity" asp-page="/Account/Register">Register</a>
+    </li>
+</div>
 }
 </ul>
