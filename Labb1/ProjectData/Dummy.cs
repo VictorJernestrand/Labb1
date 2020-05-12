@@ -71,6 +71,63 @@ namespace Labb1.ProjectData
                 Price = 145.00M,
                 ImageURL = "https://www.jula.se/globalassets/catalog/productimages/722130.jpg?width=458&height=458&scale=both&bgcolor=white"
             };
+            Product product8 = new Product()
+            {
+                Id = 8,
+                Description = "Fiskespö, teleskop, 1.8-3.6m, kolfiber",
+                Name = "Leo GT400, teleskopspö",
+                Price = 549.00M,
+                ImageURL = "https://imgaz2.staticbg.com/thumb/large/oaupload/banggood/images/5A/7A/07658788-500d-4359-923a-ba88e4864376.jpg"
+            };
+            Product product9 = new Product()
+            {
+                Id = 9,
+                Description = "Pimpelspö, mini, ultralätt",
+                Name = "Pimpelspö, mini",
+                Price = 199.00M,
+                ImageURL = "https://i5.walmartimages.com/asr/8605a207-3410-44a1-93d9-b4eef11b9682_1.2cc67ccd8c20b9016c1e9a5c91d4bea7.jpeg"
+            };
+            Product product10 = new Product()
+            {
+                Id = 10,
+                Description = "Fiskehåv, 54x28cm",
+                Name = "Fiskehåv",
+                Price = 99.00M,
+                ImageURL = "https://shop.kvibergs.se/wp-content/uploads/2017/11/1519.jpg"
+            };
+            Product product11 = new Product()
+            {
+                Id = 11,
+                Description = "Fiskevåg, Berkley, digital, max 23kg",
+                Name = "Berkley Fiskevåg",
+                Price = 249.00M,
+                ImageURL = "https://www.jula.se/globalassets/catalog/productimages/771026.jpg?width=458&height=458&scale=both&bgcolor=white"
+            };
+            Product product12 = new Product()
+            {
+                Id = 12,
+                Description = "Fiskekniv, Rapala, 4\"",
+                Name = "Rapala Fiskekniv",
+                Price = 2249.00M,
+                ImageURL = "https://www.batofiske.se/pub_images/large/02646_1013.jpg"
+            };
+            Product product13 = new Product()
+            {
+                Id = 12,
+                Description = "Fiskekniv, Rapala, 4\"",
+                Name = "Rapala Fiskekniv",
+                Price = 2249.00M,
+                ImageURL = "https://www.batofiske.se/pub_images/large/02646_1013.jpg"
+            };
+            Product product14 = new Product()
+            {
+                Id = 12,
+                Description = "Fiskekniv, Rapala, 4\"",
+                Name = "Rapala Fiskekniv",
+                Price = 2249.00M,
+                ImageURL = "https://www.batofiske.se/pub_images/large/02646_1013.jpg"
+            };
+
             Products.Add(product);
             Products.Add(product2);
             Products.Add(product3);
@@ -78,6 +135,13 @@ namespace Labb1.ProjectData
             Products.Add(product5);
             Products.Add(product6);
             Products.Add(product7);
+            Products.Add(product8);
+            Products.Add(product9);
+            Products.Add(product10);
+            Products.Add(product11);
+            Products.Add(product12);
+            Products.Add(product13);
+            Products.Add(product14);
         }
 
     }

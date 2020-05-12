@@ -5,20 +5,22 @@
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Inloggad som <b>@User.Identity.Name</b></a>
-    </li>
-    <li class="nav-item">
-        <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button  type="submit" class="btn btn-outline-info">Logout</button>
-        </form>
-    </li>
+    <div id="user-buttons">
+        <li class="nav-item">
+            <a id="logIn" class="btn btn-outline-info log-btn buttons" asp-area="Identity" asp-page="/Account/Manage/Index">Profile@*@User.Identity.Name*@</a>
+        </li>
+        <li class="nav-item">
+            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button type="submit" class="btn btn-outline-info log-btn buttons">Logout</button>
+            </form>
+        </li>
+    </div>
 }
 else
 {
 <div id="user-buttons">
     <li class="nav-item">
-        <a id="logIn"class="btn btn-outline-info log-btn buttons" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        <a id="logIn" class="btn btn-outline-info log-btn buttons" asp-area="Identity" asp-page="/Account/Login">Login</a>
     </li>
     <li class="nav-item">
         <a class="btn btn-outline-info log-btn buttons" asp-area="Identity" asp-page="/Account/Register">Register</a>
