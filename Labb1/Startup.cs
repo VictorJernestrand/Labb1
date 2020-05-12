@@ -29,6 +29,14 @@ namespace Labb1
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:60093");
+                    });
+            });
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
@@ -37,7 +45,8 @@ namespace Labb1
             services.AddControllersWithViews();
             services.AddRazorPages();
 
-            services.ConfigureApplicationCookie(options =>
+
+        services.ConfigureApplicationCookie(options =>
             {
                 options.AccessDeniedPath = "/Identity/Account/AccessDenied";
                 options.Cookie.Name = "YourAppCookieName";
@@ -49,6 +58,8 @@ namespace Labb1
                 options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
                 options.SlidingExpiration = true;
             });
+
+
             services.AddHttpContextAccessor();
             services.AddSession();
         }
@@ -71,7 +82,7 @@ namespace Labb1
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseCors();
             app.UseAuthentication();
             app.UseAuthorization();
 

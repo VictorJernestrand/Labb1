@@ -10,7 +10,6 @@ a.navbar-brand {
 /* Provide sufficient contrast against white background */
 a {
     color: #0366d6;
-
 }
 
 
@@ -63,7 +62,6 @@ html {
 body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
-    
 }
 
 .footer {
@@ -71,10 +69,100 @@ body {
     bottom: 0;
     width: 100%;
     white-space: nowrap;
-    line-height: 60px; /* Vertically center the text there */
+    line-height: 60px; /* Vertically center the text there */ 
 }
 .fixed_button {
     position: absolute !important;
     margin-top: 1900px;
     bottom: auto !important;
+}
+.header-img {
+    width: 150px;
+    height: auto;
+}
+/*#productsBtn :hover{
+    background-color: cornflowerblue;
+}*/
+.btnDivider {
+    width: 5px;
+    height: auto;
+    display: inline-block;
+}
+
+.navbar .nav-item : hover {
+    background-color: cornflowerblue;
+}
+.log-btn {
+    margin-left: 5px;
+    margin-bottom: 5px;
+}
+.buttons {
+    width: 100px;
+    height: 40px;
+}
+#logIn {
+    
+}
+#cartbutton {
+    text-decoration: none;
+    overflow: hidden;
+    position: relative;
+}
+#cartbtn {
+    display: block;
+    height: 85px;
+    width: 85px;
+    border-radius: 50%;
+    display: table;
+    background-color: blue;
+    overflow: hidden;
+}
+/*#cartbutton :hover{
+    background-color: lightblue;
+}
+#cartbtn :hover {
+    background-color: lightblue;
+}*/
+#cartbutton:hover #cartbtn {
+    background-color: darkblue;
+}
+
+#cartDec {
+    color: white;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+@media (max-width: 400px) {
+    /*#cartbutton {
+        margin-left: 10px;
+    }*/
+
+    .containerHeader {
+        display: flex;
+        flex-direction: column;
+        flex-flow: row;
+    }
+    .containerHeader div {
+        /*display: inline-block;*/
+    }
+    .log-btn {
+        margin-left: 0px;
+        order: 1;
+    }
+    #product-button {
+        order: 2;
+    }
+    #cartbutton {
+        margin: 0;
+        position: absolute;
+        top: 70%;
+        left: 57%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+    #cartbutton {
+        width: 100px;
+        height: 40px;
+    }
 }
