@@ -7,16 +7,24 @@
     width: 100px;
     height: 80px;
 }
+.table > thead > tr > th {
+    vertical-align: middle;
+}
+/*.fa-minus {
+    pointer-events: none;
+    cursor: default;
+    text-decoration: none;
+}
+.fas {
+    text-decoration: none;
+}*/
+.fa {
+    color: red;
+}
 
 @media only screen and (max-width: 450px) {
-
     /* Force table to not be like tables anymore */
-    table,
-    thead,
-    tbody,
-    th,
-    td,
-    tr {
+    table, thead, tbody, th, td, tr {
         display: block;
     }
 
@@ -26,8 +34,9 @@
             top: -9999px;
             left: -9999px;
         }
-    #cartHead{
-        display:none;
+
+    #cartHead {
+        display: none;
     }
 
     tr {
@@ -60,7 +69,15 @@
         /*
 	Label the data
 	*/
-        td:before {
+        /*td:before {
             content: attr(data-title);
-        }
+        }*/
+
+        /*td:nth-of-type(1):before {
+            content: "First Name";
+        }*/
+    td:first-child:before {
+        content: 'before';
+        position: absolute;
+    }
 }

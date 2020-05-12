@@ -8,16 +8,23 @@
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/product.css" />
     <link rel="stylesheet" href="~/css/shoppingCart.css" />
+    <link rel="stylesheet" href="~/css/order.css" />
+    <link rel="stylesheet" href="~/css/home.css" />
 </head>
 <body>
+
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Labb1</a>
+                @*<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Labb1</a>*@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                <a asp-controller="Home" asp-action="Index">
+                    <img class="header-img" src="https://www.fishmassenany.com/wp-content/uploads/2019/08/massena-logo-header-white.jpg" alt="Logo" />
+                </a>
+                <img  />
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <partial name="_LoginPartial" />
                     <div>
@@ -26,22 +33,26 @@
                                 <div class="col d-none d-md-block p-0 pl-4">Kundkorg</div>
                                 <div class="col p-0 pl-4 pr-4 pl-md-1"><i class="fas fa-cart-arrow-down"></i></div>
                             </div>
-                        </a>
+                        </a> 
                     </div>
+
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Hem</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Index">Produkter</a>
-                        </li>
-                        @*<li>
-                                <a asp-action="Index" asp-controller="Cart" class="btn btn-success" id="cartbutton"></a>
-                            </li>*@
                         @*<li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                            </li>*@
+                <a class="btn btn-outline-info" asp-area="" asp-controller="Home" asp-action="Index">Hem</a>
+            </li>
+            <div class="btnDivider"></div>*@
+                        <li class="nav-item">
+                            <a id="productsBtn" class="btn btn-outline-info" asp-controller="Product" asp-action="Index">Produkter</a>
+                        </li>
+
+                        @*<li>
+                <a asp-action="Index" asp-controller="Cart" class="btn btn-success" id="cartbutton"></a>
+            </li>*@
+                        @*<li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </li>*@
                     </ul>
+
                 </div>
             </div>
         </nav>

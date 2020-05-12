@@ -25,7 +25,7 @@
                                 </span>
                                 <span @*class="float-right btn btn-outline-success"*@ style="float:right; margin-left: 20px;">
                                 
-                                    <a class="btn btn-success" asp-controller="Product" asp-action="AddToCart" asp-route-id="@item.Id">Köp</a>
+                                    <button id="buyBtn" class="btn btn-success " onclick="AddToCart('@item.Id')" @*asp-controller="Product" asp-action="AddToCart" asp-route-id="@item.Id"*@><span class="button-text">Köp</span></button>
                                    
                                 </span>
                             </p>
