@@ -57,18 +57,34 @@
 .bs-tooltip-bottom .arrow::before {
     border-bottom-color: #f00; /* Red */
 /*}*/
+#infoBtn {
+}
+#price {
+    white-space: nowrap;
+    margin-right: 3px;
+}
+#buyBtn {
+    margin-bottom: 6px;
+}
 @media only screen and (max-width: 450px) {
-    
+    /*#product-detail {
+        padding: 0;
+        margin: 0;
+    }*/
     .card {
-        max-height: 100%;
-        overflow-y:scroll;
-
+        width: 100%;
     }
     .button-text {
-        display: none;
+        /*display: none;*/
     }
+
+
 }
 
-
+/*@media (max-width: 770px) {
+    #price {
+        max-width: 20px;
+    }
+}*/
 
 
