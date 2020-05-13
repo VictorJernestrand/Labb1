@@ -21,63 +21,81 @@
 .fa {
     color: red;
 }
-
-@media only screen and (max-width: 450px) {
-    /* Force table to not be like tables anymore */
-    table, thead, tbody, th, td, tr {
-        display: block;
+@media (max-width:450px) {
+    .cartBody {
+        padding-right: 0;
+        margin-right: 0;
+        margin-left: 0;
+        padding-left: 0;
     }
-
-        /* Hide table headers (but not display: none;, for accessibility) */
-        thead tr {
-            position: absolute;
-            top: -9999px;
-            left: -9999px;
-        }
-
-    #cartHead {
-        display: none;
+    /*.titleBefore {
+        padding-right: 0;
+        margin-right: 0;
+        margin-left: 0;
+        padding-left: 0;
     }
-
-    tr {
-        border: 1px solid #ccc;
+    #test {
+        padding-left: 0;
+        margin-left: 0;
+    }*/
+    .quantity {
+        white-space: nowrap;
+        padding-right: 0;
+        margin-right: 0;
+        margin-left: 0;
+        padding-left: 0;
+        /*margin-left:0;
+        padding-left: 0;*/
     }
-
-    td {
-        /* Behave  like a "row" */
-        border: none;
-        border-bottom: 1px solid #eee;
-        position: relative;
-        padding-left: 50%;
-        white-space: normal;
-        text-align: left;
+    .trashBin {
+        padding-left: 0;
+        white-space: nowrap;
+        
+        
     }
+    #trashBin3 {
+        /*border-collapse: collapse;*/
+        /*border-spacing: 0;*/
+        margin-left: 0;
+        padding-left: 0;
 
-        td:before {
-            /* Now like a table header */
-            position: absolute;
-            /* Top/left values mimic padding */
-            top: 6px;
-            left: 6px;
-            width: 45%;
-            padding-right: 10px;
-            white-space: nowrap;
-            text-align: left;
-            font-weight: bold;
-        }
-
-        /*
-	Label the data
-	*/
-        /*td:before {
-            content: attr(data-title);
-        }*/
-
-        /*td:nth-of-type(1):before {
-            content: "First Name";
-        }*/
-    td:first-child:before {
-        content: 'before';
-        position: absolute;
+    }
+    .price {
+        margin-left:0;
+        padding-left: 0;
+        
     }
 }
+@media (max-width:360px)
+{
+    #cartThumbnail {
+        width: 50px;
+        height: 40px;
+    }
+}
+/*.quantity {
+    white-space: nowrap;
+    padding-right: 0;
+    margin-right: 0;
+    margin-left: -10px;
+    padding-left: 0;
+    /*margin-left:0;
+        padding-left: 0;*/
+/*}*/
+/*@media (max-width:360px) {
+    .quantity {
+        margin-left: -10px;
+    }
+        #quantity {
+        float: left;
+    }
+}*/
+
+    /*@media (min-width:480px) {*/
+        /*#itemQuantity {
+        display: inline-block;
+    }*/
+        /*#trashBin3 {
+        margin-left: 0;
+    }*/
+    /*}*/
