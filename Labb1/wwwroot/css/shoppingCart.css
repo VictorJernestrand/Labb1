@@ -24,6 +24,13 @@
     text-decoration: none; 
     color: red;
 }
+.reduceBtnZero :hover, .quantityBtn :hover, .fa-trash-alt :hover {
+    text-decoration: none;
+}
+.quantity :hover {
+    text-decoration: none;
+}
+
 @media (max-width:450px) {
     .cartBody {
         padding-right: 0;

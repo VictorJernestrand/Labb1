@@ -17,39 +17,5 @@ namespace Labb1.Models
         public Guid UserId { get; set; }
         public List<OrderProduct> OrderProducts { get; set; }
         public decimal TotalPrice { get; set; }
-
-
-
     }
-
-    //public class OrderProduct
-    //{
-    //    public OrderProduct()
-    //    {
-
-    //    }
-    //    public OrderProduct(CartItem cartItem)
-    //    {
-
-    //        Product = cartItem.Product;
-    //        Quantity = cartItem.Quantity;
-
-    //    }
-    //    //public Guid Id { get; set; }
-    //    public int Quantity { get; set; }
-    //    //public decimal Price { get; set; }
-    //    public Product Product { get; set; }
-
-    //    public static explicit operator OrderProduct(CartItem cartItem)
-    //    {
-    //        var orderProduct = new OrderProduct()
-    //        {
-    //            Product = cartItem.Product,
-    //            Quantity = cartItem.Quantity
-    //        };
-    //        return orderProduct;
-    //    }
-
-
-    //}
 }

@@ -4,14 +4,22 @@
     ViewData["Title"] = "Index";
 }
 
+@if (TempData["MessageCartInfo"] != null)
+
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["MessageCartInfo"]
+    </div>
+}
+
 
 @if (Model != null && Model.CartItems.Count() > 0)
 {
     using (Html.BeginForm("ConfirmOrder", "Cart", FormMethod.Post))
     {
         <table id="test" class="table table-responsive-xs table-responsive-sm border-top-0 border-left-0 border-right-0 mx-auto">
-            <thead class="border-bottom-0" >
-                <tr id="cartHead" >
+            <thead class="border-bottom-0">
+                <tr id="cartHead">
                     <th class="border-bottom-0 cartItemPic"></th>
                     <th class="border-bottom-0 cartItemName">Produkt</th>
                     <th class="border-bottom-0 price">Pris</th>
@@ -23,60 +31,60 @@
 
                 @foreach (var item in Model.CartItems)
                 {
-                <tr class="titleBefore">
-                    <td class="cartItemPic">
-                        <img class="thumbnail" id="cartThumbnail" style="background-image: url('@item.Product.ImageURL');">
-                    </td>
-                    <td class="cartItemName">
-                        <span style="vertical-align: middle">@Html.DisplayFor(modelItem => item.Product.Name)</span>
-                    </td>
-                    <td class="price">
-                        @Html.DisplayFor(modelItem => item.Product.Price)
-                    </td>
-                    <td id="quantity" class="quantity">
-                        @if (item.Quantity <= 0)
-                        {
-                            <a asp-action="ReduceFromCart" asp-controller="Cart" class="fas fa-minus reduceBtnZero" asp-route-id="@item.Product.Id"></a>
-                        }
-                        else
-                        {
-                            <a asp-action="ReduceFromCart" asp-controller="Cart" class="fas fa-minus quantityBtn" asp-route-id="@item.Product.Id"></a>
-                        }
-                        <span>@Html.DisplayFor(modelItem => item.Quantity)</span>
-                        <a asp-action="IncreaseInCart" asp-controller="Cart" class="fas fa-plus quantityBtn" asp-route-id="@item.Product.Id"></a>
-                    </td>
-                    <td class="trashBin">
-                        <a asp-action="RemoveFromCart" asp-controller="Cart" class="fas fa-trash-alt" asp-route-id="@item.Product.Id"></a>
-                    </td>
-                </tr>
-            }
-                </tbody>
-            </table>
+                    <tr class="titleBefore">
+                        <td class="cartItemPic">
+                            <img class="thumbnail" id="cartThumbnail" style="background-image: url('@item.Product.ImageURL');">
+                        </td>
+                        <td class="cartItemName">
+                            <span style="vertical-align: middle">@Html.DisplayFor(modelItem => item.Product.Name)</span>
+                        </td>
+                        <td class="price">
+                            @Html.DisplayFor(modelItem => item.Product.Price)
+                        </td>
+                        <td id="quantity" class="quantity">
+                            @if (item.Quantity <= 0)
+                            {
+                                <a asp-action="ReduceFromCart" asp-controller="Cart" class="fas fa-minus reduceBtnZero" asp-route-id="@item.Product.Id"></a>
+                            }
+                            else
+                            {
+                                <a asp-action="ReduceFromCart" asp-controller="Cart" class="fas fa-minus quantityBtn" asp-route-id="@item.Product.Id"></a>
+                            }
+                            <span>@Html.DisplayFor(modelItem => item.Quantity)</span>
+                            <a asp-action="IncreaseInCart" asp-controller="Cart" class="fas fa-plus quantityBtn" asp-route-id="@item.Product.Id"></a>
+                        </td>
+                        <td class="trashBin">
+                            <a asp-action="RemoveFromCart" asp-controller="Cart" class="fas fa-trash-alt" asp-route-id="@item.Product.Id"></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
 
-            <div style="margin-bottom:70px; float: right">
-                <div style="margin-bottom: 10px">
-                    <span><b>Summa&nbsp;</b></span>
-                    <span>@Model.TotalPrice.ToString("C0")</span>
-                </div>
-                <div style="float:right">
-                    <input type="submit" class="btn btn-success" value="Betala" />
-                </div>
+        <div style="margin-bottom:70px; float: right">
+            <div style="margin-bottom: 10px">
+                <span><b>Summa&nbsp;</b></span>
+                <span>@Model.TotalPrice.ToString("C0")</span>
             </div>
-
-            <tfoot class="table table-responsive-xs table-responsive-sm table-borderless mx-auto">
-                <tr>
-                    <td>
-                        @Html.HiddenFor(modelItem => Model.CartItems)   
-                        @Html.HiddenFor(modelItem => Model.TotalPrice)
-                    </td>
-                </tr>
-            </tfoot>
-        }
-    }
-    else
-    {
-        <div class="alert alert-warning" role="alert">
-            Din varuvagn är tom
+            <div style="float:right">
+                <input type="submit" class="btn btn-success" value="Betala" />
+            </div>
         </div>
+
+        <tfoot class="table table-responsive-xs table-responsive-sm table-borderless mx-auto">
+            <tr>
+                <td>
+                    @Html.HiddenFor(modelItem => Model.CartItems)
+                    @Html.HiddenFor(modelItem => Model.TotalPrice)
+                </td>
+            </tr>
+        </tfoot>
     }
+}
+else
+{
+    <div class="alert alert-warning" role="alert">
+        Din kundkorg är tom
+    </div>
+}
 

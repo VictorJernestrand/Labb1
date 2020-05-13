@@ -10,7 +10,7 @@ namespace Labb1.ProjectData
     {
         public List<Product> Products { get; set; }
 
-        public Dummy(/*List<Product> products*/)
+        public Dummy()
         {
             List<Product> products = new List<Product>();
             Products = products;
@@ -135,7 +135,6 @@ namespace Labb1.ProjectData
                 Price = 199.00M,
                 ImageURL = "https://www.jula.se/globalassets/catalog/productimages/770028b.jpg?width=458&height=458&scale=both&bgcolor=white"
             };
-
 
             Products.Add(product);
             Products.Add(product2);
