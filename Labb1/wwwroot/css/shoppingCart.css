@@ -21,6 +21,21 @@
 .fa {
     color: red;
 }
+.cartItemName {
+    vertical-align: middle;
+}
+.reduceBtnZero {
+    pointer-events: none; 
+    cursor: default; 
+    text-decoration: none;
+}
+.quantityBtn {
+    text-decoration: none;
+}
+.fa-trash-alt {
+    text-decoration: none; 
+    color: red;
+}
 @media (max-width:450px) {
     .cartBody {
         padding-right: 0;
@@ -48,18 +63,19 @@
         padding-left: 0;*/
     }
     .trashBin {
+        margin-left: 0;
         padding-left: 0;
         white-space: nowrap;
-        
-        
+        border-right: none;
+        border-bottom: none;
     }
-    #trashBin3 {
-        /*border-collapse: collapse;*/
-        /*border-spacing: 0;*/
+    /*#trashBin3 {
+        border-collapse: collapse;
+        border-spacing: 0;
         margin-left: 0;
         padding-left: 0;
 
-    }
+    }*/
     .price {
         margin-left:0;
         padding-left: 0;

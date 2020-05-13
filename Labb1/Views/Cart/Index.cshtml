@@ -22,7 +22,7 @@
             <thead class="border-bottom-0" >
                 <tr id="cartHead" >
                     <th class="border-bottom-0 cartItemPic"></th>
-                    <th class="border-bottom-0 cartItemName" style="vertical-align: middle">Produkt</th>
+                    <th class="border-bottom-0 cartItemName">Produkt</th>
                     <th class="border-bottom-0 price">Pris</th>
                     <th class="border-bottom-0 quantity">Antal</th>
                     <th class="border-bottom-0 trashBin"></th>
@@ -46,25 +46,21 @@
                     <td id="quantity" class="quantity">
                         @if (item.Quantity <= 0)
                         {
-                            <a asp-action="ReduceFromCart" asp-controller="Cart" class="fas fa-minus" asp-route-id="@item.Product.Id"
-                               style="pointer-events: none; cursor: default; text-decoration: none;"></a>
-
+                            <a asp-action="ReduceFromCart" asp-controller="Cart" class="fas fa-minus reduceBtnZero" asp-route-id="@item.Product.Id"></a>
                             @*<button asp-action="ReduceFromCart" asp-controller="Cart" asp-route-id="@item.Product.Id" type="button" disabled><i class="fas fa-minus-circle"></i></button>*@
                         }
                         else
                         {
-                            <a asp-action="ReduceFromCart" asp-controller="Cart" class="fas fa-minus" asp-route-id="@item.Product.Id" style="text-decoration: none;"></a>
+                            <a asp-action="ReduceFromCart" asp-controller="Cart" class="fas fa-minus quantityBtn" asp-route-id="@item.Product.Id"></a>
                             @*<button onclick="location.href='@Url.Action("ReduceFromCart", "Cart", @item.Product.Id)';return false;" type="button"><i class="fas fa-minus-circle"></i></button>*@
                         }
                         <span>@Html.DisplayFor(modelItem => item.Quantity)</span>
-                        <a asp-action="IncreaseInCart" asp-controller="Cart" class="fas fa-plus" asp-route-id="@item.Product.Id" style="text-decoration: none;"></a>
+                        <a asp-action="IncreaseInCart" asp-controller="Cart" class="fas fa-plus quantityBtn" asp-route-id="@item.Product.Id"></a>
                     </td>
-
                         @*<td><a asp-controller="cart" asp-action="remove" asp-route-id="@item.Product.Id">Remove</a></td>*@
                         @*<td>@item.Product.Id</td>*@
-                    <td class="trashBin" id="trashBin3" style="border-right: none; border-bottom: none">
-                        <a asp-action="RemoveFromCart" asp-controller="Cart" class="fas fa-trash-alt" asp-route-id="@item.Product.Id" style="text-decoration: none; color: red"></a>
-
+                    <td class="trashBin">
+                        <a asp-action="RemoveFromCart" asp-controller="Cart" class="fas fa-trash-alt" asp-route-id="@item.Product.Id"></a>
                     </td>
 
                 </tr>

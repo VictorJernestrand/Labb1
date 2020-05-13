@@ -5,8 +5,8 @@
 }
 
 
-        <div class="container border box-shadow mb-3 testar" style="text-align: center;">
-            <div class="text-center">
+        <div class="container border box-shadow mt-5" style="text-align: center; overflow:hidden; ">
+            <div class="text-center" style="padding: 10px;">
                 <div class="row">
                     <div class="col">
                         <h4>@Model.Name</h4>
@@ -17,7 +17,7 @@
                             <button onclick="AddToCart('@Model.Id')" class="btn btn-success text-white detailBtn">Köp</button>
                         </div>
                     </div>
-                    <div class="col">
+                    <div class="col detailImgContainer">
                         <img class="productDetailImg" style="background-image: url('@Model.ImageURL')">
                     </div>
 
