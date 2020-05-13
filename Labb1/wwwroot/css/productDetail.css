@@ -13,8 +13,7 @@
     height: 40px;
     margin-bottom: 10px;
 }
-.testar {
-}
+
 @media (max-width:500px){
     .detailBtn {
         width: 75px;
@@ -22,8 +21,3 @@
         margin-bottom: 10px;
     }
 }
-/*@media (max-width: 370px){
-    .productDetailImg {
-        float: left;
-    }
-}*/
