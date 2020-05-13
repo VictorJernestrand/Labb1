@@ -21,7 +21,9 @@
         height: 35px;
         margin-bottom: 10px;
     }
-
-
-
 }
+/*@media (max-width: 370px){
+    .productDetailImg {
+        float: left;
+    }
+}*/
