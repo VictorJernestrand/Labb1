@@ -80,15 +80,20 @@
 
 
 }
-/*@media (max-width: 330px) {
+@media (max-width: 330px) {
     body {
         overflow-wrap: unset;
     }
     card {
         overflow: hidden;
         overflow-wrap: unset;
+        
     }
-}*/
+    .thumbnail {
+        width: 150px;
+        height: 120px;
+    }
+}
 
 /*@media (max-width: 770px) {
     #price {
