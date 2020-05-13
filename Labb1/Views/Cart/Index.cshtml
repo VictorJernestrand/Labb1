@@ -1,23 +1,14 @@
 ﻿@model Labb1.ViewModels.CartViewModel
-@*IEnumerable<Labb1.Models.CartItem>*@
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Din kundkorg</h1>
-
-@*<p>
-        <a asp-action="Create">Create New</a>
-    </p>*@
-
 
 @if (Model != null && Model.CartItems.Count() > 0)
 {
-    @*<form method="post" asp-action="ConfirmOrder">*@
     using (Html.BeginForm("ConfirmOrder", "Cart", FormMethod.Post))
     {
-
         <table id="test" class="table table-responsive-xs table-responsive-sm border-top-0 border-left-0 border-right-0 mx-auto">
             <thead class="border-bottom-0" >
                 <tr id="cartHead" >
@@ -34,7 +25,6 @@
                 {
                 <tr class="titleBefore">
                     <td class="cartItemPic">
-                        @*<img src="~/images/@item.Product.ImageURL" width="60" />*@
                         <img class="thumbnail" id="cartThumbnail" style="background-image: url('@item.Product.ImageURL');">
                     </td>
                     <td class="cartItemName">
@@ -47,31 +37,19 @@
                         @if (item.Quantity <= 0)
                         {
                             <a asp-action="ReduceFromCart" asp-controller="Cart" class="fas fa-minus reduceBtnZero" asp-route-id="@item.Product.Id"></a>
-                            @*<button asp-action="ReduceFromCart" asp-controller="Cart" asp-route-id="@item.Product.Id" type="button" disabled><i class="fas fa-minus-circle"></i></button>*@
                         }
                         else
                         {
                             <a asp-action="ReduceFromCart" asp-controller="Cart" class="fas fa-minus quantityBtn" asp-route-id="@item.Product.Id"></a>
-                            @*<button onclick="location.href='@Url.Action("ReduceFromCart", "Cart", @item.Product.Id)';return false;" type="button"><i class="fas fa-minus-circle"></i></button>*@
                         }
                         <span>@Html.DisplayFor(modelItem => item.Quantity)</span>
                         <a asp-action="IncreaseInCart" asp-controller="Cart" class="fas fa-plus quantityBtn" asp-route-id="@item.Product.Id"></a>
                     </td>
-                        @*<td><a asp-controller="cart" asp-action="remove" asp-route-id="@item.Product.Id">Remove</a></td>*@
-                        @*<td>@item.Product.Id</td>*@
                     <td class="trashBin">
                         <a asp-action="RemoveFromCart" asp-controller="Cart" class="fas fa-trash-alt" asp-route-id="@item.Product.Id"></a>
                     </td>
-
                 </tr>
             }
-                @*<tr>
-                    <td align="right" colspan="6" >
-                        <span><b>Summa&nbsp;</b></span>
-                        <span>@Model.TotalPrice.ToString("C0")</span>
-                    </td>
-                </tr>*@
-
                 </tbody>
             </table>
 
@@ -85,8 +63,6 @@
                 </div>
             </div>
 
-
-
             <tfoot class="table table-responsive-xs table-responsive-sm table-borderless mx-auto">
                 <tr>
                     <td>
@@ -96,7 +72,6 @@
                 </tr>
             </tfoot>
         }
-        @*</form>*@
     }
     else
     {

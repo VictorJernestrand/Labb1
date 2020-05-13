@@ -1,11 +1,6 @@
 ﻿@model IEnumerable<Labb1.Models.Product>
 
-<h1>Produkter</h1>
 
-
-@*<p>
-    <a asp-action="Create">Create New</a>
-</p>*@
 <div id="product-detail"class="row flex-row d-flex justify-content-around align-content-around flex-wrap">
     @foreach (var item in Model)
     {
@@ -25,8 +20,8 @@
                                         <a style="margin-left: 5px" asp-controller="Product" asp-action="ProductDetail" asp-route-id="@item.Id"><i class="fas fa-info-circle"></i></a>
                                     </span>
                                 </div>
-                                <div id="buyBtn2" @*class="float-right btn btn-outline-success"*@ style="float:right; margin-left: 20px;">                               
-                                    <button id="buyBtn" class="btn btn-success" onclick="AddToCart('@item.Id')" @*asp-controller="Product" asp-action="AddToCart" asp-route-id="@item.Id"*@><span class="button-text">Köp</span></button>                                  
+                                <div id="buyBtn2" style="float:right; margin-left: 20px;">                               
+                                    <button id="buyBtn" class="btn btn-success" onclick="AddToCart('@item.Id')"><span class="button-text">Köp</span></button>                                  
                                 </div>
                             </div>
                         </div>
@@ -37,58 +32,3 @@
         
     }
     </div>
-
-
-
-
-
-
-
-    @*<table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        Produkt
-                    </th>
-                    <th>
-                        Beskrivning
-                    </th>
-                    <th>
-                        Pris
-                    </th>
-                    <th>
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-        @foreach (var item in Model) {
-                <tr>
-                    <td>
-                        @item.Name
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </td>
-                    <td>
-                        @item.Price.ToString("C0")
-                    </td>
-                    <td>
-                        <img class="product-image" src="@item.ImageURL" alt="@item.Name" />
-                        <div class="thumbnail" style="background-image: url('@item.ImageURL');">
-                        </div>
-                    </td>
-                    <td>
-                        @Html.ActionLink("Lägg till i varukorg", "AddToCart", "Products", new { id = item.Id })
-                        <button class="btn add-to-cart" onclick="AddToCart(@item.Id)">Köp skiten!</button>
-                        <a asp-controller="Product" asp-action="AddToCart" asp-route-id="@item.Id">Köp</a>
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-                    </td>
-                </tr>
-        }
-            </tbody>
-        </table>*@

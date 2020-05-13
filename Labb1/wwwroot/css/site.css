@@ -7,7 +7,6 @@ a.navbar-brand {
   word-break: break-all;
 }
 
-/* Provide sufficient contrast against white background */
 a {
     color: #0366d6;
 }
@@ -25,8 +24,6 @@ a {
   border-color: #1861ac;
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
 html {
   font-size: 14px;
 }
@@ -52,24 +49,23 @@ button.accept-policy {
   line-height: inherit;
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
+
 html {
   position: relative;
   min-height: 100%;
 }
 
 body {
-    /* Margin bottom by footer height */
+
     margin-bottom: 60px;
 }
 
 .footer {
-    position: absolute; /*Or relative???*/
+    position: absolute; 
     bottom: 0;
     width: 100%;
     white-space: nowrap;
-    line-height: 60px; /* Vertically center the text there */ 
+    line-height: 60px; 
 }
 .fixed_button {
     position: absolute !important;
@@ -80,9 +76,7 @@ body {
     width: 150px;
     height: auto;
 }
-/*#productsBtn :hover{
-    background-color: cornflowerblue;
-}*/
+
 .btnDivider {
     width: 5px;
     height: auto;
@@ -101,7 +95,7 @@ body {
     height: 40px;
 }
 .btn:focus {
-    /*outline: none;*/
+
     box-shadow: none;
 }
 #logOut {
@@ -124,12 +118,7 @@ body {
     background-color: #0b1fc2;
     overflow: hidden;
 }
-/*#cartbutton :hover{
-    background-color: lightblue;
-}
-#cartbtn :hover {
-    background-color: lightblue;
-}*/
+
 #cartbutton:hover #cartbtn {
     background-color: darkblue;
 }
@@ -141,18 +130,13 @@ body {
     text-align: center;
 }
 @media (max-width: 574px) {
-    /*#cartbutton {
-        margin-left: 10px;
-    }*/
 
     .containerHeader {
         display: flex;
         flex-direction: column;
         flex-flow: row;
     }
-    .containerHeader div {
-        /*display: inline-block;*/
-    }
+
     .log-btn {
         margin-left: 0px;
         order: 1;
@@ -168,13 +152,6 @@ body {
         -ms-transform: translate(-50%, -50%);
         transform: translate(-50%, -50%);
     }
-    #cartbutton {
-        /*width: 100px;
-        height: 40px;*/
-    }
+
 }
-/*@media (max-width: 385px){
-    body {
-        width: 100%;
-    }
-}*/
+
