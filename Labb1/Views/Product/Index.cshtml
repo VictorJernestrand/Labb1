@@ -21,11 +21,11 @@
                             <div style="display:flex">
                                 <div id="price" class="price" style="max-width: 60px">
                                     @item.Price.ToString("C0")
-                                    <span>
+                                    <span id="infoBtn">
                                         <a style="margin-left: 5px" asp-controller="Product" asp-action="ProductDetail" asp-route-id="@item.Id"><i class="fas fa-info-circle"></i></a>
                                     </span>
                                 </div>
-                                <div @*class="float-right btn btn-outline-success"*@ style="float:right; margin-left: 20px;">                               
+                                <div id="buyBtn2" @*class="float-right btn btn-outline-success"*@ style="float:right; margin-left: 20px;">                               
                                     <button id="buyBtn" class="btn btn-success" onclick="AddToCart('@item.Id')" @*asp-controller="Product" asp-action="AddToCart" asp-route-id="@item.Id"*@><span class="button-text">Köp</span></button>                                  
                                 </div>
                             </div>

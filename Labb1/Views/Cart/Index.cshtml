@@ -18,13 +18,13 @@
     using (Html.BeginForm("ConfirmOrder", "Cart", FormMethod.Post))
     {
 
-        <table class="table table-responsive-xs table-responsive-sm border-top-0 border-left-0 border-right-0 mx-auto">
+        <table id="test" class="table table-responsive-xs table-responsive-sm border-top-0 border-left-0 border-right-0 mx-auto">
             <thead class="border-bottom-0" >
                 <tr id="cartHead" >
                     <th class="border-bottom-0"></th>
                     <th class="border-bottom-0" style="vertical-align: middle">Produkt</th>
-                    <th class="border-bottom-0">Pris</th>
-                    <th class="border-bottom-0">Antal</th>
+                    <th class="border-bottom-0 price">Pris</th>
+                    <th class="border-bottom-0 quantity">Antal</th>
                     <th class="border-bottom-0"></th>
                 </tr>
             </thead>
@@ -37,13 +37,13 @@
                         @*<img src="~/images/@item.Product.ImageURL" width="60" />*@
                         <img class="thumbnail" id="cartThumbnail" style="background-image: url('@item.Product.ImageURL');">
                     </td>
-                    <td>
+                    <td id="cartItemName">
                         <span style="vertical-align: middle">@Html.DisplayFor(modelItem => item.Product.Name)</span>
                     </td>
-                    <td>
+                    <td class="price">
                         @Html.DisplayFor(modelItem => item.Product.Price)
                     </td>
-                    <td>
+                    <td class="quantity">
                         @if (item.Quantity <= 0)
                         {
                             <a asp-action="ReduceFromCart" asp-controller="Cart" class="fas fa-minus" asp-route-id="@item.Product.Id"
@@ -56,15 +56,15 @@
                             <a asp-action="ReduceFromCart" asp-controller="Cart" class="fas fa-minus" asp-route-id="@item.Product.Id" style="text-decoration: none;"></a>
                             @*<button onclick="location.href='@Url.Action("ReduceFromCart", "Cart", @item.Product.Id)';return false;" type="button"><i class="fas fa-minus-circle"></i></button>*@
                         }
-                        &nbsp;@Html.DisplayFor(modelItem => item.Quantity)&nbsp;
+                        <span>@Html.DisplayFor(modelItem => item.Quantity)</span>
                         <a asp-action="IncreaseInCart" asp-controller="Cart" class="fas fa-plus" asp-route-id="@item.Product.Id" style="text-decoration: none;"></a>
-                    </td>
+                        </td>
 
-                    @*<td><a asp-controller="cart" asp-action="remove" asp-route-id="@item.Product.Id">Remove</a></td>*@
-                    @*<td>@item.Product.Id</td>*@
-                    <td style="border-right: none; border-bottom: none">
-                        <a asp-action="RemoveFromCart" asp-controller="Cart" class="fas fa-trash-alt" asp-route-id="@item.Product.Id" style="text-decoration: none; color: red"></a>
-                       
+                        @*<td><a asp-controller="cart" asp-action="remove" asp-route-id="@item.Product.Id">Remove</a></td>*@
+                        @*<td>@item.Product.Id</td>*@
+                        <td id="trashBin3" style="border-right: none; border-bottom: none">
+                        <span id="trashBin"><a id="trashBin2" asp-action="RemoveFromCart" asp-controller="Cart" class="fas fa-trash-alt" asp-route-id="@item.Product.Id" style="text-decoration: none; color: red"></a></span>
+
                     </td>
 
                 </tr>
