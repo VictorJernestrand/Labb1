@@ -47,6 +47,7 @@ namespace Labb1.Controllers
                 int index = FindIndexOfCartItem(cart, id);
                 if (index != -1)
                 {
+                    // Increase one copy from that specific product
                     cart[index].Quantity++;
                 }
                 SetCart(cart);
@@ -66,6 +67,7 @@ namespace Labb1.Controllers
                 int index = FindIndexOfCartItem(cart, id);
                 if (index != -1)
                 {
+                    // Reduce one copy from that specific product
                     cart[index].Quantity--;
                 }
                 SetCart(cart);
@@ -86,6 +88,7 @@ namespace Labb1.Controllers
                 int index = FindIndexOfCartItem(cart, id);
                 if (index != -1)
                 {
+                    // Remove all of this product from cart
                     cart.RemoveAt(index);
                 }
                 SetCart(cart);
@@ -132,6 +135,12 @@ namespace Labb1.Controllers
                     {
                         orderProducts.Remove(item); 
                     }
+                    // Prevent user to confirm order without products in cart
+                    if (orderProducts.Count == 0)
+                    {
+                        TempData["MessageCartInfo"] = "Din kundkorg är tom";
+                        return RedirectToAction("Index");
+                    }
 
 
                     OrderViewModel orderViewModel = new OrderViewModel();
@@ -142,7 +151,7 @@ namespace Labb1.Controllers
                     };
 
 
-                    orderViewModel.Order = order;
+                orderViewModel.Order = order;
                 orderViewModel.User = user;
                 orderViewModel.Order.OrderProducts = orderProducts;
                 orderViewModel.Order.TotalPrice = cartViewModel.TotalPrice;
@@ -159,7 +168,6 @@ namespace Labb1.Controllers
                 return NotFound();
             }
         }
-
         public async Task<CartViewModel> ShowCart()
         {
             var cart = await GetCart();

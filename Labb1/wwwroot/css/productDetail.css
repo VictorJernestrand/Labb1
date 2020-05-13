@@ -1,0 +1,23 @@
+﻿.productDetailImg {
+    background-color: white;
+    width: 300px;
+    height: 240px;
+    display: inline-block; 
+    background-size: contain; 
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.detailBtn {
+    width: 100px;
+    height: 40px;
+    margin-bottom: 10px;
+}
+
+@media (max-width:500px){
+    .detailBtn {
+        width: 75px;
+        height: 35px;
+        margin-bottom: 10px;
+    }
+}

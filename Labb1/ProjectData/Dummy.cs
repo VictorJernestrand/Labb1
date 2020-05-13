@@ -10,7 +10,7 @@ namespace Labb1.ProjectData
     {
         public List<Product> Products { get; set; }
 
-        public Dummy(/*List<Product> products*/)
+        public Dummy()
         {
             List<Product> products = new List<Product>();
             Products = products;
@@ -108,24 +108,32 @@ namespace Labb1.ProjectData
                 Id = 12,
                 Description = "Fiskekniv, Rapala, 4\"",
                 Name = "Rapala Fiskekniv",
-                Price = 2249.00M,
+                Price = 249.00M,
                 ImageURL = "https://www.batofiske.se/pub_images/large/02646_1013.jpg"
             };
             Product product13 = new Product()
             {
-                Id = 12,
-                Description = "Fiskekniv, Rapala, 4\"",
-                Name = "Rapala Fiskekniv",
-                Price = 2249.00M,
-                ImageURL = "https://www.batofiske.se/pub_images/large/02646_1013.jpg"
+                Id = 13,
+                Description = "Abu Garcia Spinnare, 12g, Reflex, Röd",
+                Name = "Abu Garcia Spinnare",
+                Price = 59.00M,
+                ImageURL = "https://www.happyangler.se/i/hkg/036282342743_1/abu-reflex-red-12-g-spinnare.jpg?$flyout$"
             };
             Product product14 = new Product()
             {
-                Id = 12,
-                Description = "Fiskekniv, Rapala, 4\"",
-                Name = "Rapala Fiskekniv",
-                Price = 2249.00M,
-                ImageURL = "https://www.batofiske.se/pub_images/large/02646_1013.jpg"
+                Id = 14,
+                Description = "Skeddrag, Toby, Abu Garcia 3-pack, olikfärgade",
+                Name = "Toby Skeddrag 3-pack",
+                Price = 59.00M,
+                ImageURL = "https://www.happyangler.se/i/hkg/036282852020_1/abu-garcia-toby-3-pack-skeddragset.jpg?$flyout$"
+            };
+            Product product15 = new Product()
+            {
+                Id = 15,
+                Description = "Fiskelåda med 3 uppfällbara sorteringsfack, snäpplås, uppfällbart handtag",
+                Name = "Fiskelåda",
+                Price = 199.00M,
+                ImageURL = "https://www.jula.se/globalassets/catalog/productimages/770028b.jpg?width=458&height=458&scale=both&bgcolor=white"
             };
 
             Products.Add(product);
@@ -133,6 +141,8 @@ namespace Labb1.ProjectData
             Products.Add(product3);
             Products.Add(product4);
             Products.Add(product5);
+            Products.Add(product13);
+            Products.Add(product14);
             Products.Add(product6);
             Products.Add(product7);
             Products.Add(product8);
@@ -140,8 +150,7 @@ namespace Labb1.ProjectData
             Products.Add(product10);
             Products.Add(product11);
             Products.Add(product12);
-            Products.Add(product13);
-            Products.Add(product14);
+            Products.Add(product15);
         }
 
     }

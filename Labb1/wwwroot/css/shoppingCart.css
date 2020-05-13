@@ -1,8 +1,4 @@
-﻿/*#cartbutton {
-    background-color: #76c788;
-    text-shadow: 1px 1px #262b2e;
-}*/
-
+﻿
 #cartThumbnail {
     width: 100px;
     height: 80px;
@@ -10,17 +6,31 @@
 .table > thead > tr > th {
     vertical-align: middle;
 }
-/*.fa-minus {
-    pointer-events: none;
-    cursor: default;
-    text-decoration: none;
-}
-.fas {
-    text-decoration: none;
-}*/
 .fa {
     color: red;
 }
+.cartItemName {
+    vertical-align: middle;
+}
+.reduceBtnZero {
+    pointer-events: none; 
+    cursor: default; 
+    text-decoration: none;
+}
+.quantityBtn {
+    text-decoration: none;
+}
+.fa-trash-alt {
+    text-decoration: none; 
+    color: red;
+}
+.reduceBtnZero :hover, .quantityBtn :hover, .fa-trash-alt :hover {
+    text-decoration: none;
+}
+.quantity :hover {
+    text-decoration: none;
+}
+
 @media (max-width:450px) {
     .cartBody {
         padding-right: 0;
@@ -28,38 +38,21 @@
         margin-left: 0;
         padding-left: 0;
     }
-    /*.titleBefore {
-        padding-right: 0;
-        margin-right: 0;
-        margin-left: 0;
-        padding-left: 0;
-    }
-    #test {
-        padding-left: 0;
-        margin-left: 0;
-    }*/
     .quantity {
         white-space: nowrap;
         padding-right: 0;
         margin-right: 0;
         margin-left: 0;
         padding-left: 0;
-        /*margin-left:0;
-        padding-left: 0;*/
     }
     .trashBin {
-        padding-left: 0;
-        white-space: nowrap;
-        
-        
-    }
-    #trashBin3 {
-        /*border-collapse: collapse;*/
-        /*border-spacing: 0;*/
         margin-left: 0;
         padding-left: 0;
-
+        white-space: nowrap;
+        border-right: none;
+        border-bottom: none;
     }
+
     .price {
         margin-left:0;
         padding-left: 0;
@@ -73,29 +66,3 @@
         height: 40px;
     }
 }
-/*.quantity {
-    white-space: nowrap;
-    padding-right: 0;
-    margin-right: 0;
-    margin-left: -10px;
-    padding-left: 0;
-    /*margin-left:0;
-        padding-left: 0;*/
-/*}*/
-/*@media (max-width:360px) {
-    .quantity {
-        margin-left: -10px;
-    }
-        #quantity {
-        float: left;
-    }
-}*/
-
-    /*@media (min-width:480px) {*/
-        /*#itemQuantity {
-        display: inline-block;
-    }*/
-        /*#trashBin3 {
-        margin-left: 0;
-    }*/
-    /*}*/

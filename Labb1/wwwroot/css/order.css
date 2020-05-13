@@ -4,10 +4,6 @@
     margin: 0;
 }
 
-/*#sum {
-    position: absolute;
-    bottom: 0;
-}*/
 .display-4 {
     text-align: center;
 }
@@ -22,10 +18,7 @@
     padding: 10px;
 }
 @media only screen and (max-width: 450px) {
-    /*#orderTable {
-        padding-left: 0;
-        padding-right: 0;
-    }*/
+
     #orderProducts {
         padding-left: 0;
         padding-right: 0;
