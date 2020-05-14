@@ -138,7 +138,7 @@ namespace Labb1.Controllers
                     // Prevent user to confirm order without products in cart
                     if (orderProducts.Count == 0)
                     {
-                        TempData["MessageCartInfo"] = "Din kundkorg är tom";
+                        TempData["MessageCartInfo"] = "Du kan inte lägga en order, din kundkorg är tom.";
                         return RedirectToAction("Index");
                     }
 
