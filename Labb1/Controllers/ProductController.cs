@@ -16,25 +16,20 @@ namespace Labb1.Controllers
     public class ProductController : Controller
     {
         private readonly Dummy _dummyData;
-        private string _cartCookie;
-        public string ShoppingCartId { get; set; }
         public const string CartSessionKey = "CartId";
-        public ProductController(IConfiguration config)
+        public ProductController()
         {
-            this._cartCookie = config["CartSessionCookie:Name"];
             _dummyData = new Dummy();
         }
         public IActionResult Index()
         {
-            Dummy dummyData = new Dummy();
-            var allProducts = dummyData.Products;
+            var allProducts = _dummyData.Products;
             return View(allProducts);
         }
 
         public IActionResult ProductDetail(int id)
         {
-            Dummy dummyData = new Dummy();
-            var product = dummyData.Products.FirstOrDefault(x => x.Id == id);
+            var product = _dummyData.Products.FirstOrDefault(x => x.Id == id);
             if (product == null)
             {
                 return NotFound();
