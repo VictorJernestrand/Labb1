@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Labb1.Models;
+using Labb1.Services;
 
 namespace Labb1
 {
@@ -29,6 +30,7 @@ namespace Labb1
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<ApiHandler>();
             services.AddCors(options =>
             {
                 options.AddDefaultPolicy(
@@ -37,6 +39,7 @@ namespace Labb1
                         builder.WithOrigins("http://localhost:60093");
                     });
             });
+            services.AddHttpClient();
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
