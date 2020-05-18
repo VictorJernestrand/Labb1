@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Labb1.Helpers;
 using Labb1.Models;
 using Labb1.ProjectData;
+using Labb1.Services;
 using Labb1.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -18,10 +19,12 @@ namespace Labb1.Controllers
     public class CartController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ApiHandler _api;
 
-        public CartController(UserManager<ApplicationUser> userManager)
+        public CartController(UserManager<ApplicationUser> userManager, ApiHandler api)
         {
             _userManager = userManager;
+            _api = api;
 
         }
 

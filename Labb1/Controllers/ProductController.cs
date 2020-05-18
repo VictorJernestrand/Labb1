@@ -10,41 +10,51 @@ using Microsoft.Extensions.Configuration;
 using System.Web;
 using Labb1.Helpers;
 using Labb1.ProjectData;
+using Labb1.Services;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Labb1.Controllers
 {
     public class ProductController : Controller
     {
-        private readonly Dummy _dummyData;
+        //private readonly Dummy _dummyData;
         public const string CartSessionKey = "CartId";
-        public ProductController()
+        private readonly ApiHandler _api;
+        private readonly IWebHostEnvironment _env;
+        public ProductController(ApiHandler api, IWebHostEnvironment env)
         {
-            _dummyData = new Dummy();
+            //_dummyData = new Dummy();
+            _api = api;
+            _env = env;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var allProducts = _dummyData.Products;
+            //var allProducts = _dummyData.Products;
+            var allProducts = await _api.GetAllAsync<Product>(ApiHandler.PRODUCTS);
             return View(allProducts);
         }
 
-        public IActionResult ProductDetail(int id)
+        public async Task<IActionResult> ProductDetail(int id)
         {
-            var product = _dummyData.Products.FirstOrDefault(x => x.Id == id);
-            if (product == null)
-            {
-                return NotFound();
-            }
+            //var product = _dummyData.Products.FirstOrDefault(x => x.Id == id);
+            //if (product == null)
+            //{
+            //    return NotFound();
+            //}
+            var product = await _api.GetOneAsync<Product>(ApiHandler.PRODUCTS + id);
 
             return View(product);
         }
 
         public async Task<IActionResult> AddToCart(int id)
         {
+            var product = await _api.GetOneAsync<Product>(ApiHandler.PRODUCTS + id);
             if (await SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart") == null)
             {
                 List<CartItem> cart = new List<CartItem>
-                {
-                    new CartItem { Product = _dummyData.Products.Find(x => x.Id == id), Quantity = 1 }
+                {   
+                //new CartItem { Product = _dummyData.Products.Find(x => x.Id == id), Quantity = 1 }
+                new CartItem {Product = product, Quantity = 1 }
                 };
                 SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
             }
@@ -59,7 +69,7 @@ namespace Labb1.Controllers
                 }
                 else
                 {
-                    cart.Add(new CartItem { Product = _dummyData.Products.Find(x => x.Id == id), Quantity = 1 });
+                    cart.Add(new CartItem { Product = product, Quantity = 1 });
                 }
                 SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
             }

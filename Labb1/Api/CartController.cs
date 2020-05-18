@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Labb1.Helpers;
 using Labb1.Models;
 using Labb1.ProjectData;
+using Labb1.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,18 +15,21 @@ namespace Labb1.Api
     [ApiController]
     public class CartController : ControllerBase
     {
-        private readonly Dummy _dummyData;
-        public CartController()
+        //private readonly Dummy _dummyData;
+        private readonly ApiHandler _api;
+        public CartController(ApiHandler api)
         {
-            _dummyData = new Dummy();
+            //_dummyData = new Dummy();
+            _api = api;
         }
         [HttpGet]
         public async Task<IActionResult> AddToCart(int id)
         {
+            var product = await _api.GetOneAsync<Product>(ApiHandler.PRODUCTS + id);
             if (await SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart") == null)
             {
                 List<CartItem> cart = new List<CartItem>();
-                cart.Add(new CartItem { Product = _dummyData.Products.Find(x => x.Id == id), Quantity = 1 });
+                cart.Add(new CartItem { Product = product, Quantity = 1 });
                 SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
             }
             else
@@ -39,7 +43,7 @@ namespace Labb1.Api
                 }
                 else
                 {
-                    cart.Add(new CartItem { Product = _dummyData.Products.Find(x => x.Id == id), Quantity = 1 });
+                    cart.Add(new CartItem { Product = product, Quantity = 1 });
                 }
                 SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
             }
