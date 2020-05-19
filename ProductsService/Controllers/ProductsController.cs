@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProductsService.Context;
 using ProductsService.Models;
+using ProductsService.Services;
 
 namespace ProductsService.Controllers
 {
@@ -15,24 +16,26 @@ namespace ProductsService.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly ProductApiContext _context;
+        private readonly IProductRepository _productRepository;
 
-        public ProductsController(ProductApiContext context)
+        public ProductsController(ProductApiContext context, IProductRepository productRepository)
         {
             _context = context;
+            _productRepository = productRepository;
         }
 
         // GET: api/Products
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
+        public async Task<ActionResult<List<Product>>> GetProducts()
         {
-            return await _context.Products.ToListAsync();
+            return await _productRepository.GetAll();
         }
 
         // GET: api/Products/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetProduct(int id)
         {
-            var product = await _context.Products.FindAsync(id);
+            var product = await _productRepository.GetById(id);
 
             if (product == null)
             {
