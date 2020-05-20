@@ -10,7 +10,8 @@ namespace ProductsService.Services
 {
     public class ProductRepository : IProductRepository
     {
-        public ProductApiContext _context { get; set; }
+        //public ProductApiContext _context { get; set; }
+        private readonly ProductApiContext _context;
         public ProductRepository(ProductApiContext context)
         {
             _context = context;
