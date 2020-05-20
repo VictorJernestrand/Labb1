@@ -1,29 +1,67 @@
-﻿@model IEnumerable<Labb1.ViewModels.OrderViewModel>
+﻿@model Labb1.ViewModels.OrderViewModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "OrderConfirmed";
 }
 
-<h1>Index</h1>
+<h4 class="display-4">Tack för din order!</h4>
+<p></p>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="container" id="orderContainer">
+    <div class="row">
+        <div class="card col-md-4" style="padding: 5px">
+            <div class="card-body">
+                <div>
+                    <b>Orderdatum</b>
+                    <p>
+                        @Model.Order.OrderDate.ToString(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"))
+                    </p>
+
+                </div>
+                <b>Leveransadress</b>
+                <address>
+                    @Html.DisplayFor(modelItem => modelItem.User.FirstName)
+                    @Html.DisplayFor(modelItem => modelItem.User.LastName)
+                </address>
+                <address>
+                    @Html.DisplayFor(modelItem => modelItem.User.StreetAddress)<br />
+                    @Html.DisplayFor(modelItem => modelItem.User.ZipCode)<br />
+                    @Html.DisplayFor(modelItem => modelItem.User.City)<br />
+                </address>
+
+            </div>
+        </div>
+        <div class="card col-md-8" id="orderProducts">
+            <table class="table table-striped table-borderless flex-grow-1" id="orderTable">
+                <thead>
+                    <tr>
+                        <th>Produkt</th>
+                        <th>Pris</th>
+                        <th>Antal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Order.OrderProducts)
+                    {
+                        <tr>
+                            <td id="orderItemName">
+                                @Html.DisplayFor(modelItem => item.Product.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Product.Price)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Quantity)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+            <div id="sum">
+                <span><b>Summa&nbsp;</b></span>
+                <span>@Model.Order.TotalPrice.ToString("C0")</span>
+            </div>
+        </div>
+    </div>
+</div>
