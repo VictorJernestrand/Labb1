@@ -14,7 +14,9 @@ namespace Labb1.Models
             OrderProducts = new List<OrderProduct>();
         }
         public DateTime OrderDate { get; set; }
-        public Guid UserId { get; set; }
+        //public Guid UserId { get; set; }
+        public ApplicationUser User { get; set; }
+        public string UserId { get; set; }
         public List<OrderProduct> OrderProducts { get; set; }
         public decimal TotalPrice { get; set; }
     }
