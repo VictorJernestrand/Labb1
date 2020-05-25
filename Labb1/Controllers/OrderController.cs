@@ -106,6 +106,15 @@ namespace Labb1.Controllers
                     if (result.IsSuccessStatusCode)
                     {
                         //return RedirectToAction("Index");
+
+                        // Clear cart session
+                        HttpContext.Session.Remove("cart");
+
+                        return View(orderViewModel);
+                    }
+                    else
+                    {
+                        return NotFound();
                     }
 
                     //using (var client = new HttpClient())
@@ -128,11 +137,13 @@ namespace Labb1.Controllers
                     //return View(order);
 
                     //var test = await ApiHandler.PostAsync<OrderViewModel>(orderViewModel, ApiHandler.ORDERS);
+                    //----------------------
 
                     // Clear cart session
-                    HttpContext.Session.Remove("cart");
+                    //HttpContext.Session.Remove("cart");
 
-                    return View(orderViewModel);
+                    //return View(orderViewModel);
+                    //---------------------------------
                     //TempData["Order"] = orderViewModel;
                     //return RedirectToAction("Index", "Order");
                 }

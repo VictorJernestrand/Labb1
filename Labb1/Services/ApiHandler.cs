@@ -84,6 +84,16 @@ namespace Labb1.Services
 
             var result = postTask.Result;
         }
+        //public async Task<List<Order>> GetAllOrders()
+        //{
+        //    var result = await GetAllAsync<Order>(ORDERS);
+        //    var products = await GetAllAsync<Product>(PRODUCTS);
+
+        //    foreach (var test in result)
+        //    {
+        //        test.OrderProducts
+        //    }
+        //}
 
         private async Task<HttpResponseMessage> SendRequestAsync(HttpRequestMessage request)
         {
