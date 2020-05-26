@@ -38,7 +38,7 @@ namespace ProductsService.Services
         {
             try
             {
-                var product = GetById(id);
+                var product = _context.Products.Find(id);
                 _context.Products.Remove(product);
                 _context.SaveChanges();
                 return true;
