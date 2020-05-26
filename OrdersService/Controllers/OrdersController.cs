@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OrdersService.Data;
 using OrdersService.Models;
+using OrdersService.Services;
 
 namespace OrdersService.Controllers
 {
@@ -15,10 +16,12 @@ namespace OrdersService.Controllers
     public class OrdersController : ControllerBase
     {
         private readonly OrdersDbContext _context;
+        private readonly IOrderRepository _orderRepository;
 
-        public OrdersController(OrdersDbContext context)
+        public OrdersController(OrdersDbContext context, IOrderRepository orderRepository)
         {
             _context = context;
+            _orderRepository = orderRepository;
         }
 
         // GET: api/Orders
@@ -145,10 +148,35 @@ namespace OrdersService.Controllers
 
             return Ok();
         }
+        [HttpPost]
+        public /*async Task<ActionResult>*/ IActionResult Create([FromBody] Order order)
+        {
+            if (order == null)
+            {
+                return BadRequest();
+            }
+            //var createdProduct = await _productRepository.Create(product);
+            var createdOrder = _orderRepository.Create(order);
+
+            return Ok(createdOrder);
+        }
+        [HttpDelete]/*("{id}")]*/
+        public ActionResult<int> Delete(Guid id)
+        {
+            var wasDeleted = _orderRepository.Delete(id);
+            if (wasDeleted)
+            {
+                return Ok(id);
+            }
+            else
+            {
+                return NotFound(id);
+            }
+        }
 
         // DELETE: api/Orders/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Order>> DeleteOrder(int id)
+        public async Task<ActionResult<Order>> DeleteOrder(Guid id)
         {
             var order = await _context.Orders.FindAsync(id);
             if (order == null)

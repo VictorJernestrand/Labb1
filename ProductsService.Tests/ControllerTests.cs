@@ -10,13 +10,13 @@ using Xunit;
 
 namespace ProductsService.Tests
 {
-    public class ControllerTests : IClassFixture<ProductFixture>
+    public class ControllerTests /*: IClassFixture<ProductFixture>*/
     {
-        ProductFixture _fixture;
-        public ControllerTests(ProductFixture fixture)
-        {
-            _fixture = fixture;
-        }
+        //ProductFixture _fixture;
+        //public ControllerTests(ProductFixture fixture)
+        //{
+        //    _fixture = fixture;
+
 
         [Fact]
         public async Task GetAllProducts_Returns_Ok()

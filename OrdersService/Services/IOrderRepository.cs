@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 
 namespace OrdersService.Services
 {
-    interface IOrderRepository
+    public interface IOrderRepository
     {
-        Task<Order> GetById(int id);
-        Task<List<Order>> GetAll();
+        public Task<Order> GetById(Guid id);
+        public Task<List<Order>> GetAll();
+        public Order Create(Order order);
+        public bool Delete(Guid id);
+        public Order GetByIdSync(Guid id);
     }
 }
