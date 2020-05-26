@@ -1,61 +1,120 @@
-﻿using ProductsService.Models;
-using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
+﻿//using ProductsService.Models;
+//using System;
+//using System.Collections.Generic;
+//using System.Net.Http;
+//using System.Text;
+//using System.Text.Json;
+//using System.Threading.Tasks;
 
 
-namespace ProductsService.Tests
-{
-    public class ProductFixture : IDisposable
-    {
-        public Product Product { get; private set; }
-        public ProductFixture()
-        {
-            Product = Initialize().Result;
-        }
-        private async Task<Product> Initialize()
-        {
-            using (var client = new TestClientProvider().Client)
-            {
-                var payload = JsonSerializer.Serialize(
-                    new Product()
-                    {
-                        Name = "Test product",
-                        Description = "Bla bla bla",
-                        Price = 99.00M,
-                        ImageURL = "https://www.sportfiskeprylar.se/bilder/artiklar/zoom/SHADOWKIT2_1.jpg"
-                    });
-                
-                HttpContent content = new StringContent(payload, Encoding.UTF8, "application/json");
+//namespace ProductsService.Tests
+//{
+//    public class ProductFixture : IDisposable
+//    {
+//        public Product Product { get; private set; }
+//        public ProductFixture()
+//        {
+//            Product = Initialize().Result;
+//        }
+//        private async Task<Product> Initialize()
+//        {
+//            using (var client = new TestClientProvider().Client)
+//            {
+//                var payload = JsonSerializer.Serialize(
+//                    new Product()
+//                    {
+//                        Name = "Test product",
+//                        Description = "Bla bla bla",
+//                        Price = 99.00M,
+//                        ImageURL = "https://www.sportfiskeprylar.se/bilder/artiklar/zoom/SHADOWKIT2_1.jpg"
+//                    });
 
-                var response = await client.PostAsync($"/api/products/create/", content);
+//                HttpContent content = new StringContent(payload, Encoding.UTF8, "application/json");
 
-                using (var responseStream = await response.Content.ReadAsStreamAsync())
-                {
-                    
-                    var createdProduct = await JsonSerializer.DeserializeAsync<Product>(responseStream,
-                        new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+//                var response = await client.PostAsync($"/api/products/create/", content);
 
-                    return createdProduct;
-                }
-            }
-        }
+//                using (var responseStream = await response.Content.ReadAsStreamAsync())
+//                {
 
-        public async void Dispose()
-        {
-            using (var client = new TestClientProvider().Client)
-            {
-                var deleteResponse = await client.DeleteAsync($"/api/products/delete/{Product.Id}");
+//                    var createdProduct = await JsonSerializer.DeserializeAsync<Product>(responseStream,
+//                        new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
 
-                using (var responseStream = await deleteResponse.Content.ReadAsStreamAsync())
-                {
-                    var deletedId = await JsonSerializer.DeserializeAsync<int>(responseStream,
-                        new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
-                }
-            }
-        }
-    }
-}
+//                    return createdProduct;
+//                }
+//            }
+//        }
+
+//        public async void Dispose()
+//        {
+//            using (var client = new TestClientProvider().Client)
+//            {
+//                var deleteResponse = await client.DeleteAsync($"/api/products/delete/{Product.Id}");
+
+//                using (var responseStream = await deleteResponse.Content.ReadAsStreamAsync())
+//                {
+//                    var deletedId = await JsonSerializer.DeserializeAsync<int>(responseStream,
+//                        new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+//                }
+//            }
+//        }
+//    }
+//}
+
+//using ProductsService.Models;
+//using ProductsService.Tests;
+//using System;
+//using System.Collections.Generic;
+//using System.Net.Http;
+//using System.Text;
+//using System.Text.Json;
+//using System.Threading.Tasks;
+
+//namespace ProductsService.Tests
+//{
+//    public class ProductFixture : IDisposable
+//    {
+//        public Product Product { get; private set; }
+
+//        private async Task<Product> Initialize()
+//        {
+//            using (var client = new TestClientProvider().Client)
+//            {
+//                var payload = JsonSerializer.Serialize(
+
+//                new Product()
+//                {
+//                    Name = "Test product",
+//                    Description = "Bla bla bla",
+//                    Price = 99.00M,
+//                    ImageURL = "https://www.sportfiskeprylar.se/bilder/artiklar/zoom/SHADOWKIT2_1.jpg"
+//                });
+//                HttpContent content = new StringContent(payload, Encoding.UTF8, "application/json");
+
+//                var response = await client.PostAsync($"/api/products/create", content);
+
+//                using (var responseStream = await response.Content.ReadAsStreamAsync())
+//                {
+//                    var createdOrder = await JsonSerializer.DeserializeAsync<Product>(responseStream,
+//                        new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+
+//                    return createdOrder;
+//                }
+//            }
+//        }
+
+//        public async void Dispose()
+//        {
+//            using (var client = new TestClientProvider().Client)
+//            {
+//                var deletedResponse = await client.DeleteAsync($"/api/products/delete?id={Product.Id}");
+
+//                using (var responseStream = await deletedResponse.Content.ReadAsStreamAsync())
+//                {
+//                    var deletedId = await JsonSerializer.DeserializeAsync<Guid>(responseStream,
+//                        new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+//                }
+//            }
+//        }
+//    }
+//}
+

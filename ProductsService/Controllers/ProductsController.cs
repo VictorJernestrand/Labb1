@@ -90,8 +90,8 @@ namespace ProductsService.Controllers
 
             return CreatedAtAction("GetProduct", new { id = product.Id }, product);
         }
-        [HttpPost]
-        public /*async Task<ActionResult>*/ IActionResult Create([FromBody] Product product)
+        [HttpPost("Create")]
+        public /*async Task<ActionResult>*/ ActionResult Create([FromBody] Product product)
         {
             if (product == null)
             {
@@ -102,11 +102,11 @@ namespace ProductsService.Controllers
 
             return Ok(createdProduct);
         }
-        [HttpDelete]/*("{id}")]*/
+        [HttpDelete("delete/{id}")]/*("Delete/{id}")]/*("{id}")]*/
         public ActionResult<int> Delete(int id)
         {
             var wasDeleted = _productRepository.Delete(id);
-            if(wasDeleted)
+            if (wasDeleted)
             {
                 return Ok(id);
             }
@@ -117,20 +117,20 @@ namespace ProductsService.Controllers
         }
 
         // DELETE: api/Products/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Product>> DeleteProduct(int id)
-        {
-            var product = await _context.Products.FindAsync(id);
-            if (product == null)
-            {
-                return NotFound();
-            }
+        //[HttpDelete("{id}")]
+        //public async Task<ActionResult<Product>> DeleteProduct(int id)
+        //{
+        //    var product = await _context.Products.FindAsync(id);
+        //    if (product == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            _context.Products.Remove(product);
-            await _context.SaveChangesAsync();
+        //    _context.Products.Remove(product);
+        //    await _context.SaveChangesAsync();
 
-            return product;
-        }
+        //    return product;
+        //}
 
         private bool ProductExists(int id)
         {

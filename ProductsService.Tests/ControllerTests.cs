@@ -10,13 +10,18 @@ using Xunit;
 
 namespace ProductsService.Tests
 {
-    public class ControllerTests /*: IClassFixture<ProductFixture>*/
+    public class ControllerTests : IClassFixture<ProductsFixture>
     {
-        //ProductFixture _fixture;
-        //public ControllerTests(ProductFixture fixture)
+        readonly ProductsFixture _fixture;
+        public ControllerTests(ProductsFixture fixture)
+        {
+            _fixture = fixture;
+        }
+        //[Fact]
+        //public async Task GetProduct()
         //{
-        //    _fixture = fixture;
-
+        //    Assert.NotNull(_fixture.Product);
+        //}
 
         [Fact]
         public async Task GetAllProducts_Returns_Ok()
@@ -36,7 +41,7 @@ namespace ProductsService.Tests
         {
             using (var client = new TestClientProvider().Client)
             {
-                var response = await client.GetAsync("/api/products/" + 25);
+                var response = await client.GetAsync("/api/products/" + 100);
                 Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
             }
         }
@@ -51,23 +56,36 @@ namespace ProductsService.Tests
                 Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             }
         }
-        //[Fact]
-        //public async Task GetProductById_Returns_Product()
-        //{
-        //    using (var client = new TestClientProvider().Client)
-        //    {
-        //        //("{id}")]
-        //        var productResponse = await client.GetAsync($"/api/products/{_fixture.Product.Id}");
+        [Fact]
+        public async Task GetProductById_Returns_Product()
+        {
+            using (var client = new TestClientProvider().Client)
+            {
+                //("{id}")]
+                var productResponse = await client.GetAsync($"/api/products/{_fixture.Product.Id}");
 
-        //        using (var responseStream = await productResponse.Content.ReadAsStreamAsync())
-        //        {
-        //            var product = await JsonSerializer.DeserializeAsync<Product>(responseStream,
-        //                new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+                using (var responseStream = await productResponse.Content.ReadAsStreamAsync())
+                {
+                    var product = await JsonSerializer.DeserializeAsync<Product>(responseStream,
+                        new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
 
-        //            Assert.Equal(_fixture.Product.Id, product.Id);
-        //        }
-        //    }
-        //}
+                    Assert.Equal(_fixture.Product.Id, product.Id);
+                }
+            }
+        }
+
+        [Fact]
+        public async void Testa()
+        {
+            using (var client = new TestClientProvider().Client)
+            {
+                var productId = _fixture.Product.Id;
+
+                var response = await client.GetAsync("/api/products/" + productId);
+
+                Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+            }
+        }
 
         //[Fact]
         //public async Task GetProductById_Returns_Product()
