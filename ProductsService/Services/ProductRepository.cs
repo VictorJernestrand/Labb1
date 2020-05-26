@@ -16,14 +16,38 @@ namespace ProductsService.Services
         {
             _context = context;
         }
-        public async Task<Product> GetById(int id)
+        public /*async Task<Product>*/ Product GetById(int id)
         {
-            return await _context.Products.FindAsync(id);
+            //return await _context.Products.FindAsync(id);
+            //return _context.Products.Find(id);
+            return _context.Products.FirstOrDefault(x => x.Id == id);
         }
 
-        public async Task<List<Product>> GetAll()
+        public /*async Task<List<Product>>*/ List<Product> GetAll()
         {
-            return await _context.Products.ToListAsync();
+            //return await _context.Products.ToListAsync();
+            return _context.Products.ToList();
         }
+        public Product Create(Product product)
+        {
+            _context.Products.Add(product);
+            _context.SaveChanges();
+            return product;
+        }
+        public bool Delete(int id)
+        {
+            try
+            {
+                var product = GetById(id);
+                _context.Products.Remove(product);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
     }
 }
