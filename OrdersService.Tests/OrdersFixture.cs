@@ -17,7 +17,7 @@ namespace OrdersService.Tests
         public OrderProduct OrderProduct { get; private set; }
         public OrdersFixture()
         {
-            OrderProduct = new OrderProduct() { ProductId = 5, Quantity = 1};
+            Order = Initialize().Result;
         }
 
         private async Task<Order> Initialize()
@@ -35,7 +35,6 @@ namespace OrdersService.Tests
                         TotalPrice = 199,
                         UserId = "9f2a7eaf-0331-45fb-9c46-2fe5e6caa367",
                         OrderProducts = new List<OrderProduct>()
-                        
                     }) ; 
                 HttpContent content = new StringContent(payload, Encoding.UTF8, "application/json");
 
