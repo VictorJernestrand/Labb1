@@ -6,11 +6,12 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
+
 namespace ProductsService.Tests
 {
     public class ProductFixture : IDisposable
     {
-        public Product Product { get; set; }
+        public Product Product { get; private set; }
         public ProductFixture()
         {
             Product = Initialize().Result;
@@ -27,12 +28,14 @@ namespace ProductsService.Tests
                         Price = 99.00M,
                         ImageURL = "https://www.sportfiskeprylar.se/bilder/artiklar/zoom/SHADOWKIT2_1.jpg"
                     });
+                
                 HttpContent content = new StringContent(payload, Encoding.UTF8, "application/json");
 
-                var response = await client.PostAsync($"/api/product/create", content);
+                var response = await client.PostAsync($"/api/products/create/", content);
 
                 using (var responseStream = await response.Content.ReadAsStreamAsync())
                 {
+                    
                     var createdProduct = await JsonSerializer.DeserializeAsync<Product>(responseStream,
                         new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
 
@@ -45,7 +48,7 @@ namespace ProductsService.Tests
         {
             using (var client = new TestClientProvider().Client)
             {
-                var deleteResponse = await client.DeleteAsync($"/api/product/delete?id={Product.Id}");
+                var deleteResponse = await client.DeleteAsync($"/api/products/delete/{Product.Id}");
 
                 using (var responseStream = await deleteResponse.Content.ReadAsStreamAsync())
                 {
