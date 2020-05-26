@@ -15,7 +15,7 @@ namespace OrdersService.Services
         {
             _context = context;
         }
-        public async Task<Order> GetById(int id)
+        public async Task<Order> GetById(Guid id)
         {
             return await _context.Orders.FindAsync(id);
         }
@@ -23,6 +23,32 @@ namespace OrdersService.Services
         public async Task<List<Order>> GetAll()
         {
             return await _context.Orders.ToListAsync();
+        }
+
+        public Order Create(Order order)
+        {
+            _context.Orders.Add(order);
+            _context.SaveChanges();
+            return order;
+        }
+        public Order GetByIdSync(Guid id)
+        {
+            return _context.Orders.Find(id);
+        }
+
+        public bool Delete(Guid id)
+        {
+            try
+            {
+                var order = GetByIdSync(id);
+                _context.Orders.Remove(order);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
     }
 }
