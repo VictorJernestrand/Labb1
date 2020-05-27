@@ -29,10 +29,10 @@ namespace ProductsService.Context
         },
             new Product
             {
-                Description = "rapala Shadow, 3-pack, 11 cm, olikfärgade",
-                Name = "Rapala Shadow, 3-pack",
-                Price = 199.00M,
-                ImageURL = "https://www.sportfiskeprylar.se/bilder/artiklar/zoom/SHADOWKIT2_1.jpg"
+                Description = "rapala Shadow Rap, 3-pack, 11 cm, olikfärgade",
+                Name = "Rapala Shadow Rap, 3-pack",
+                Price = 279.00M,
+                ImageURL = "https://www.sportfiskeprylar.se/bilder/artiklar/SHADOWRAP11BUNDLE1.jpg"
             },
 
             new Product

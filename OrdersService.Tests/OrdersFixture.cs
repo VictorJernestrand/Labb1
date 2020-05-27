@@ -33,8 +33,11 @@ namespace OrdersService.Tests
                     new Order()
                     {
                         TotalPrice = 199,
-                        UserId = "9f2a7eaf-0331-45fb-9c46-2fe5e6caa367",
+                        UserId = "", /*"9f2a7eaf-0331-45fb-9c46-2fe5e6caa367",*/
                         OrderProducts = new List<OrderProduct>()
+                        {
+                            new OrderProduct { ProductId = 5, Quantity = 1 }
+                        }
                     }) ; 
                 HttpContent content = new StringContent(payload, Encoding.UTF8, "application/json");
 
@@ -54,7 +57,7 @@ namespace OrdersService.Tests
         {
             using (var client = new TestClientProvider().Client)
             {
-                var deletedResponse = await client.DeleteAsync($"/api/orders/delete?id={Order.Id}");
+                var deletedResponse = await client.DeleteAsync("/api/orders/delete/" + Order.Id);
 
                 using (var responseStream = await deletedResponse.Content.ReadAsStreamAsync())
                 {
