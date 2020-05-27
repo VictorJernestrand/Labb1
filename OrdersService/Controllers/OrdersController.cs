@@ -148,8 +148,8 @@ namespace OrdersService.Controllers
 
             return Ok();
         }
-        [HttpPost]
-        public /*async Task<ActionResult>*/ IActionResult Create([FromBody] Order order)
+        [HttpPost("Create")]
+        public /*async Task<ActionResult>*/ ActionResult Create([FromBody] Order order)
         {
             if (order == null)
             {
@@ -160,7 +160,8 @@ namespace OrdersService.Controllers
 
             return Ok(createdOrder);
         }
-        [HttpDelete]/*("{id}")]*/
+        /*[HttpDelete]*//*("{id}")]*/
+        [HttpDelete("delete/{id}")]
         public ActionResult<int> Delete(Guid id)
         {
             var wasDeleted = _orderRepository.Delete(id);
