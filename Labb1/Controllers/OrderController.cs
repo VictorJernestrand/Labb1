@@ -72,7 +72,7 @@ namespace Labb1.Controllers
                     if (orderProducts.Count == 0)
                     {
                         TempData["MessageCartInfo"] = "Du kan inte lägga en order, din kundkorg är tom.";
-                        return RedirectToAction("Index");
+                        return RedirectToAction("Index", "Cart");
                     }
 
 

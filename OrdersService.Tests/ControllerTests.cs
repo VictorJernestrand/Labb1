@@ -51,7 +51,7 @@ namespace OrdersService.Tests
             }
         }
         [Fact]
-        public async Task GetOrderById_Returns_Order()
+        public async Task GetOrderById_Returns_OrderId()
         {
             using (var client = new TestClientProvider().Client)
             {
@@ -62,7 +62,7 @@ namespace OrdersService.Tests
                     var order = await JsonSerializer.DeserializeAsync<Order>(responseStream,
                         new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
 
-                    Assert.Equal(_fixture.Order, order);
+                    Assert.Equal(_fixture.Order.Id, order.Id);
                 }
             }
         }

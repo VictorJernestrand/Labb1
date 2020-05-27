@@ -50,8 +50,8 @@ namespace ProductsService.Controllers
         // PUT: api/Products/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutProduct(int id, Product product)
+        [HttpPut("update/{id}")]
+        public async Task<IActionResult> Update(int id, Product product)
         {
             if (id != product.Id)
             {
@@ -75,8 +75,8 @@ namespace ProductsService.Controllers
                     throw;
                 }
             }
-
-            return NoContent();
+            return Ok(product);
+            //return NoContent();
         }
 
         // POST: api/Products
@@ -102,7 +102,7 @@ namespace ProductsService.Controllers
 
             return Ok(createdProduct);
         }
-        [HttpDelete("delete/{id}")]/*("Delete/{id}")]/*("{id}")]*/
+        [HttpDelete("delete/{id}")]
         public ActionResult<int> Delete(int id)
         {
             var wasDeleted = _productRepository.Delete(id);
