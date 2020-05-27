@@ -75,7 +75,7 @@ namespace ProductsService.Tests
         }
 
         [Fact]
-        public async void Testa()
+        public async void CreateTestProduct_GetId_Returns_Ok()
         {
             using (var client = new TestClientProvider().Client)
             {

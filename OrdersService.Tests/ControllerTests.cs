@@ -18,7 +18,7 @@ namespace OrdersService.Tests
             _fixture = fixture;
         }
         [Fact]
-        public async Task GetAllProducts_Returns_Ok()
+        public async Task GetAllOrders_Returns_Ok()
         {
             using (var client = new TestClientProvider().Client)
             {
@@ -31,7 +31,7 @@ namespace OrdersService.Tests
         }
 
         [Fact]
-        public async Task GetProductById_Returns_NotFound()
+        public async Task GetNonExistingOrderById_Returns_NotFound()
         {
             using (var client = new TestClientProvider().Client)
             {
@@ -41,7 +41,7 @@ namespace OrdersService.Tests
         }
 
         [Fact]
-        public async Task GetProductById_Returns_OK()
+        public async Task GetOrderById_Returns_OK()
         {
             using (var client = new TestClientProvider().Client)
             {
@@ -55,15 +55,47 @@ namespace OrdersService.Tests
         {
             using (var client = new TestClientProvider().Client)
             {
-                var orderResponse = await client.GetAsync($"/api/orders/getorder/{_fixture.Order.Id}");
+                var orderResponse = await client.GetAsync($"/api/orders/{_fixture.Order.Id}");
 
                 using (var responseStream = await orderResponse.Content.ReadAsStreamAsync())
                 {
                     var order = await JsonSerializer.DeserializeAsync<Order>(responseStream,
                         new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
 
-                    Assert.Equal(_fixture.Order.Id, order.Id);
+                    Assert.Equal(_fixture.Order, order);
                 }
+            }
+        }
+        [Fact]
+        public async Task DeleteOrder_Returns_DeletedId()
+        {
+            using (var client = new TestClientProvider().Client)
+            {
+                var orderId = _fixture.Order.Id;
+
+                var deletedResponse = await client.DeleteAsync("/api/orders/delete/" + orderId);
+
+                using (var responseStream = await deletedResponse.Content.ReadAsStreamAsync())
+                {
+                    var deletedId = await JsonSerializer.DeserializeAsync<Guid>(responseStream,
+                        new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+
+                    Assert.Equal(orderId, deletedId);
+                }
+                
+            }
+        }
+        [Fact]
+        public async Task CreateOrder_Returns_NotEmptyId()
+        {
+            using (var client = new TestClientProvider().Client)
+            {
+                var order =  _fixture.Order;
+                var orderId = order.Id;
+
+                Assert.NotNull(order);
+                Assert.NotEqual<Guid>(Guid.Empty, orderId);
+
             }
         }
     }
