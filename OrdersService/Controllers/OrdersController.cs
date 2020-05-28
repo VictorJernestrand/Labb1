@@ -48,34 +48,34 @@ namespace OrdersService.Controllers
         // PUT: api/Orders/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> PutOrder(Guid id, Order order)
-        //{
-        //    if (id != order.Id)
-        //    {
-        //        return BadRequest();
-        //    }
+        [HttpPut("update/{id}")]
+        public async Task<IActionResult> Update(Guid id, Order order)
+        {
+            if (id != order.Id)
+            {
+                return BadRequest();
+            }
 
-        //    _context.Entry(order).State = EntityState.Modified;
+            _context.Entry(order).State = EntityState.Modified;
 
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!OrderExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
-
-        //    return NoContent();
-        //}
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                //if (!OrderExists(id))
+                //{
+                //    return NotFound();
+                //}
+                //else
+                //{
+                //    throw;
+                //}
+            }
+            return Ok(order);
+            //return NoContent();
+        }
 
         // POST: api/Orders
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
