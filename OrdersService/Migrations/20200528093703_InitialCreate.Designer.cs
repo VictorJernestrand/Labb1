@@ -10,7 +10,7 @@ using OrdersService.Data;
 namespace OrdersService.Migrations
 {
     [DbContext(typeof(OrdersDbContext))]
-    [Migration("20200524152448_InitialCreate")]
+    [Migration("20200528093703_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

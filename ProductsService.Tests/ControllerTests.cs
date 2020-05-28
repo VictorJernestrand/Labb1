@@ -61,7 +61,7 @@ namespace ProductsService.Tests
             }
         }
         [Fact]
-        public async Task GetProductById_Returns_Product()
+        public async Task GetProductById_Returns_ProductId()
         {
             using (var client = new TestClientProvider().Client)
             {
@@ -74,6 +74,23 @@ namespace ProductsService.Tests
                         new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
 
                     Assert.Equal(_fixture.Product.Id, product.Id);
+                }
+            }
+        }
+        [Fact]
+        public async Task Test()
+        {
+            using (var client = new TestClientProvider().Client)
+            {
+                var orderResponse = await client.GetAsync($"/api/products/{1}");
+
+                using (var responseStream = await orderResponse.Content.ReadAsStreamAsync())
+                {
+                    var product = await JsonSerializer.DeserializeAsync<Product>(responseStream,
+                        new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+                    var test = product.ImageURL;
+
+                    Assert.IsType<string>(test);
                 }
             }
         }
@@ -90,6 +107,7 @@ namespace ProductsService.Tests
                 Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             }
         }
+
 
         //[Fact]
         //public async Task UpdateProductName_Return_Ok2()

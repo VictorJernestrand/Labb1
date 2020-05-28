@@ -28,10 +28,10 @@ namespace Labb1.Services
         //    return allProducts = ("https://localhost:44381/api/products/");
 
         //}
-        public HttpClient GetClientTest()
-        {
-            return _client;
-        }
+        //public HttpClient GetClientTest()
+        //{
+        //    return _client;
+        //}
 
         public async Task<List<T>> GetAllAsync<T>(string apiPath)
         {
