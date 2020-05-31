@@ -27,12 +27,7 @@ namespace Labb1.Controllers
             _client = client.CreateClient();
 
         }
-        //[HttpPost]
-        //public IActionResult Index(OrderViewModel orderViewModel)
-        //{
-        //    orderViewModel = TempData["Order"] as OrderViewModel;
-        //    return View(orderViewModel);
-        //}
+
         [HttpPost]
         public async Task<IActionResult> Index([Bind("TotalPrice, CartItems")]CartViewModel cartViewModel)
         {
@@ -80,33 +75,24 @@ namespace Labb1.Controllers
                     Order order = new Order
                     {
                         OrderDate = DateTime.Now,
-                        //UserId = Guid.Parse(_userManager.GetUserId(User)),
                         User = user,
                         UserId = user.Id,
                         OrderProducts = orderProducts,
                         TotalPrice = cartViewModel.TotalPrice
                     };
 
-
                     orderViewModel.Order = order;
                     orderViewModel.User = user;
                     orderViewModel.Order.OrderProducts = orderProducts;
                     orderViewModel.Order.TotalPrice = cartViewModel.TotalPrice;
 
-
-
-
-                    //HTTP POST
-                    //var postTask = client.PostAsJsonAsync<OrderViewModel>("orders", orderViewModel);
-                    var postTask = _client.PostAsJsonAsync<Order>(ApiHandler.ORDERS, order);
+                    var postTask = _client.PostAsJsonAsync<Order>(ApiHandler.POST, order);
 
                     postTask.Wait();
 
                     var result = postTask.Result;
                     if (result.IsSuccessStatusCode)
                     {
-                        //return RedirectToAction("Index");
-
                         // Clear cart session
                         HttpContext.Session.Remove("cart");
 
@@ -116,36 +102,6 @@ namespace Labb1.Controllers
                     {
                         return NotFound();
                     }
-
-                    //using (var client = new HttpClient())
-                    //{
-                    //    client.BaseAddress = new Uri("http://localhost:44323/api/orders/");
-
-                    //    //HTTP POST
-                    //    var postTask = client.PostAsJsonAsync<Order>("order", order);
-                    //    postTask.Wait();
-
-                    //    var result = postTask.Result;
-                    //    if (result.IsSuccessStatusCode)
-                    //    {
-                    //        return RedirectToAction("Index");
-                    //    }
-                    //}
-
-                    //ModelState.AddModelError(string.Empty, "Server Error. Please contact administrator.");
-
-                    //return View(order);
-
-                    //var test = await ApiHandler.PostAsync<OrderViewModel>(orderViewModel, ApiHandler.ORDERS);
-                    //----------------------
-
-                    // Clear cart session
-                    //HttpContext.Session.Remove("cart");
-
-                    //return View(orderViewModel);
-                    //---------------------------------
-                    //TempData["Order"] = orderViewModel;
-                    //return RedirectToAction("Index", "Order");
                 }
             }
             else

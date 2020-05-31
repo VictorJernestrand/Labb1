@@ -11,7 +11,7 @@ namespace ProductsService.Tests
 {
     public class ProductsFixture : IDisposable
     {
-        public Product Product { get; private set; }
+        public Product Product { get; set; }
         public ProductsFixture()
         {
             Product = Initialize().Result;

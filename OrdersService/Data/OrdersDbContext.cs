@@ -13,14 +13,6 @@ namespace OrdersService.Data
         {
         }
         public DbSet<Order> Orders { get; set; }
-        //public DbSet<OrderProduct> OrderProducts { get; set; }
-    //    protected override void OnModelCreating(ModelBuilder builder)
-    //    {
-    //        base.OnModelCreating(builder);
-    //        builder.Entity<Order>().HasMany(b => b.OrderProducts).WithOne(p => p.Order)
-    //.HasForeignKey(p => p.OrderId)
-    //.OnDelete(DeleteBehavior.Cascade);
-    //    }
         protected override void OnConfiguring(DbContextOptionsBuilder options)
 => options.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=OrdersService;Trusted_Connection=True;");
     }

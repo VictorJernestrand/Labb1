@@ -24,20 +24,16 @@ namespace ProductsService.Controllers
             _productRepository = productRepository;
         }
 
-        // GET: api/Products
         [HttpGet]
-        public /*async Task<ActionResult<List<Product>>>*/ ActionResult<List<Product>> GetProducts()
+        public async Task<ActionResult<List<Product>>> GetProducts()
         {
-            //return await _productRepository.GetAll();
-            return _productRepository.GetAll();
+            return await _productRepository.GetAllAsync();
         }
 
-        // GET: api/Products/5
         [HttpGet("{id}")]
-        public /*async Task<ActionResult<Product>>*/ ActionResult<Product> GetProduct(int id)
+        public async Task<ActionResult<Product>> GetProduct(int id)
         {
-            //var product = await _productRepository.GetById(id);
-            var product = _productRepository.GetById(id);
+            var product = await _productRepository.GetByIdAsync(id);
 
             if (product == null)
             {
@@ -47,9 +43,6 @@ namespace ProductsService.Controllers
             return product;
         }
 
-        // PUT: api/Products/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("update/{id}")]
         public async Task<IActionResult> Update(int id, Product product)
         {
@@ -76,12 +69,8 @@ namespace ProductsService.Controllers
                 }
             }
             return Ok(product);
-            //return NoContent();
         }
 
-        // POST: api/Products
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
         public async Task<ActionResult<Product>> PostProduct(Product product)
         {
@@ -91,13 +80,12 @@ namespace ProductsService.Controllers
             return CreatedAtAction("GetProduct", new { id = product.Id }, product);
         }
         [HttpPost("Create")]
-        public /*async Task<ActionResult>*/ ActionResult Create([FromBody] Product product)
+        public ActionResult Create([FromBody] Product product)
         {
             if (product == null)
             {
                 return BadRequest();
             }
-            //var createdProduct = await _productRepository.Create(product);
             var createdProduct = _productRepository.Create(product);
 
             return Ok(createdProduct);
@@ -115,22 +103,6 @@ namespace ProductsService.Controllers
                 return NotFound(id);
             }
         }
-
-        // DELETE: api/Products/5
-        //[HttpDelete("{id}")]
-        //public async Task<ActionResult<Product>> DeleteProduct(int id)
-        //{
-        //    var product = await _context.Products.FindAsync(id);
-        //    if (product == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    _context.Products.Remove(product);
-        //    await _context.SaveChangesAsync();
-
-        //    return product;
-        //}
 
         private bool ProductExists(int id)
         {

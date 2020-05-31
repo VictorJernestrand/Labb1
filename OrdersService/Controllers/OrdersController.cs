@@ -24,14 +24,12 @@ namespace OrdersService.Controllers
             _orderRepository = orderRepository;
         }
 
-        // GET: api/Orders
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Order>>> GetOrders()
         {
             return await _context.Orders.ToListAsync();
         }
 
-        // GET: api/Orders/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Order>> GetOrder(Guid id)
         {
@@ -45,9 +43,6 @@ namespace OrdersService.Controllers
             return order;
         }
 
-        // PUT: api/Orders/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("update/{id}")]
         public async Task<IActionResult> Update(Guid id, Order order)
         {
@@ -57,57 +52,19 @@ namespace OrdersService.Controllers
             }
 
             _context.Entry(order).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                //if (!OrderExists(id))
-                //{
-                //    return NotFound();
-                //}
-                //else
-                //{
-                //    throw;
-                //}
-            }
             return Ok(order);
-            //return NoContent();
         }
-
-        // POST: api/Orders
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        //[HttpPost]
-        //public async Task<ActionResult<Order>> PostOrder(/*Order order*/Order order)
-        //{
-        //    //var orderProds = order.OrderProducts.ToList();
-        //    //foreach(var prod in order.OrderProducts)
-        //    //{
-        //    //    _context.OrderProducts.Add(prod);
-        //    //    await _context.SaveChangesAsync();
-        //    //}
-        //    Guid id = Guid.NewGuid();
-        //    Order newOrder = new Order
-        //    {
-        //        Id = id,
-        //        OrderProducts = order.OrderProducts,
-        //        TotalPrice = order.TotalPrice,
-        //        User = order.User
-        //    };
-
-        //    _context.Orders.Add(newOrder);
-        //    await _context.SaveChangesAsync();
-
-        //    return CreatedAtAction("GetOrder", new { id = order.Id }, order);
-        //}
-
+        [HttpPost("post")]
         public ActionResult<Order> PostOrder(Order order)
         {
             if (!ModelState.IsValid)
                 return BadRequest("Not a valid model");
+            if (order == null)
+            {
+                return BadRequest();
+            }
             Guid id = Guid.NewGuid();
             
             Order newOrder = new Order()
@@ -118,49 +75,12 @@ namespace OrdersService.Controllers
                 UserId = order.UserId
                 
             };
-            //var orderProducts = newOrder.Select(x => new OrderProduct
-            //{
-            //    //Product = x.Product,
-            //    ProductId = x.Product.Id,
-            //    Quantity = x.Quantity
-            //}).ToList();
 
-            //foreach (var product in newOrder.OrderProducts)
-            //{
-            //    product.ProductId = 
-            //}
-
-
-            _context.Orders.Add(newOrder);
-            _context.SaveChanges();
-            //using (_context)
-            //{
-            //    _context.Orders.Add(new Order()
-            //    {
-            //        Id = id,
-            //        OrderProducts = order.OrderProducts,
-            //        TotalPrice = order.TotalPrice,
-            //        User = order.User
-            //    });
-
-            //    _context.SaveChanges();
-            //}
-
-            return Ok();
-        }
-        [HttpPost("Create")]
-        public /*async Task<ActionResult>*/ ActionResult Create([FromBody] Order order)
-        {
-            if (order == null)
-            {
-                return BadRequest();
-            }
-            //var createdProduct = await _productRepository.Create(product);
-            var createdOrder = _orderRepository.Create(order);
+            var createdOrder = _orderRepository.Create(newOrder);
 
             return Ok(createdOrder);
         }
-        /*[HttpDelete]*//*("{id}")]*/
+
         [HttpDelete("delete/{id}")]
         public ActionResult<int> Delete(Guid id)
         {
@@ -175,7 +95,6 @@ namespace OrdersService.Controllers
             }
         }
 
-        // DELETE: api/Orders/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Order>> DeleteOrder(Guid id)
         {
@@ -190,10 +109,5 @@ namespace OrdersService.Controllers
 
             return order;
         }
-
-        //private bool OrderExists(int id)
-        //{
-        //    return _context.Orders.Any(e => e.Id == id);
-        //}
     }
 }

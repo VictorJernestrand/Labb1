@@ -10,23 +10,20 @@ namespace ProductsService.Services
 {
     public class ProductRepository : IProductRepository
     {
-        //public ProductApiContext _context { get; set; }
         private readonly ProductApiContext _context;
         public ProductRepository(ProductApiContext context)
         {
             _context = context;
         }
-        public /*async Task<Product>*/ Product GetById(int id)
+        public async Task<Product> GetByIdAsync(int id)
         {
-            //return await _context.Products.FindAsync(id);
-            //return _context.Products.Find(id);
-            return _context.Products.FirstOrDefault(x => x.Id == id);
+            return await _context.Products.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public /*async Task<List<Product>>*/ List<Product> GetAll()
+        public async Task<List<Product>> GetAllAsync()
         {
-            //return await _context.Products.ToListAsync();
-            return _context.Products.ToList();
+            return await _context.Products.ToListAsync();
+
         }
         public Product Create(Product product)
         {

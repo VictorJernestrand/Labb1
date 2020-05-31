@@ -41,17 +41,29 @@ namespace OrdersService.Tests
                 Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
             }
         }
+        [Fact]
+        public async void CreateTestOrder_UpdateWithWrongId__Returns_BadRequest()
+        {
+            var order = new Order
+            {
+                UserId = Guid.NewGuid().ToString(),
+                OrderProducts = new List<OrderProduct> { new OrderProduct { ProductId = 8, Quantity = 3 } },
+                TotalPrice = 699.00M
+            };
+            using (var client = new TestClientProvider().Client)
+            {
+                var payload = JsonSerializer.Serialize(order);
+                HttpContent content = new StringContent(payload, Encoding.UTF8, "application/json");
 
-        //[Fact]
-        //public async Task GetOrderById_Returns_OK()
-        //{
-        //    using (var client = new TestClientProvider().Client)
-        //    {
-        //        var response = await client.GetAsync("/api/orders/" + "adef8993-e4e3-4773-b054-85756882a9ad");
-        //        response.EnsureSuccessStatusCode();
-        //        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-        //    }
-        //}
+                var response = await client.PutAsync("/api/orders/update/" + Guid.NewGuid(), content);
+
+                var deletedOrder = await client.DeleteAsync($"/api/orders/{order.Id}");
+
+                Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+            }
+            
+        }
+
         [Fact]
         public async Task GetOrderById_Returns_OrderId()
         {
@@ -71,36 +83,41 @@ namespace OrdersService.Tests
         [Fact]
         public async void CreateTestOrder_Returns_OrderProduct()
         {
-            using (var client = new TestClientProvider().Client)
-            {
-                var order = _fixture.Order;
+                var order = new Order
+                {
+                    UserId = Guid.NewGuid().ToString(),
+                    OrderProducts = new List<OrderProduct> { new OrderProduct { ProductId = 2, Quantity = 4 } },
+                    TotalPrice = 299.00M
+                };
+                using (var client = new TestClientProvider().Client)
+                {
+                    var payload = JsonSerializer.Serialize(order);
+                    HttpContent content = new StringContent(payload, Encoding.UTF8, "application/json");
 
-                var payload = JsonSerializer.Serialize(order);
-                HttpContent content = new StringContent(payload, Encoding.UTF8, "application/json");
+                    var response = await client.PostAsync($"/api/orders/post/", content);
 
-                var response = await client.PutAsync("/api/orders/update/" + order.Id, content);
-
-                using (var responseStream = await response.Content.ReadAsStreamAsync())
+                    using (var responseStream = await response.Content.ReadAsStreamAsync())
                 {
                     var updatedOrder = await JsonSerializer.DeserializeAsync<Order>(responseStream,
                         new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
 
                     await client.DeleteAsync("/api/orders/delete/" + updatedOrder.Id);
 
-                    var orderProduct = updatedOrder.OrderProducts.Find(x => x.ProductId == 5);
+                    var orderProduct = updatedOrder.OrderProducts.FirstOrDefault();
 
                     Assert.IsType<OrderProduct>(orderProduct);
                 }
-            
+                await client.DeleteAsync("/api/orders/delete/" + order.Id);
+
             }
         }
+
         [Fact]
         public async Task DeleteOrder_Returns_DeletedId()
         {
             using (var client = new TestClientProvider().Client)
             {
                 var orderId = _fixture.Order.Id;
-
                 var deletedResponse = await client.DeleteAsync("/api/orders/delete/" + orderId);
 
                 using (var responseStream = await deletedResponse.Content.ReadAsStreamAsync())
@@ -109,61 +126,38 @@ namespace OrdersService.Tests
                         new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
 
                     Assert.Equal(orderId, deletedId);
-                }
-                
+                }            
             }
         }
         [Fact]
-        public async Task CreateOrder_Returns_NotEmptyId()
+        public async Task Delete_Order_EmptyGuid_returns_NotFound()
         {
             using (var client = new TestClientProvider().Client)
             {
-                var order =  _fixture.Order;
-                var orderId = order.Id;
+                var deleteresponse = await client.DeleteAsync($"/api/orders/delete/{Guid.Empty}");
 
-                Assert.NotNull(order);
-                Assert.NotEqual<Guid>(Guid.Empty, orderId);
-
+                Assert.Equal(HttpStatusCode.NotFound, deleteresponse.StatusCode);
             }
         }
         [Fact]
-        public async Task UpdateOrderProducts_ContainingNewOrderProduct_Return_NewOrderProductId()
+        public void CreateOrder_Returns_NotEmptyId()
         {
             using (var client = new TestClientProvider().Client)
             {
                 var order = _fixture.Order;
-                var orderProduct = _fixture.OrderProduct;
+                var orderId = order.Id;
 
-                order.OrderProducts.Add(new OrderProduct { ProductId = 9, Quantity = 2 });
-
-                var payload = JsonSerializer.Serialize(order);
-                HttpContent content = new StringContent(payload, Encoding.UTF8, "application/json");
-
-                var response = await client.PutAsync("/api/orders/update/" + order.Id, content);
-
-                using (var responseStream = await response.Content.ReadAsStreamAsync())
-                {
-                    var updatedOrder = await JsonSerializer.DeserializeAsync<Order>(responseStream,
-                        new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
-
-                    //await client.DeleteAsync("/api/orders/delete/" + updatedOrder.Id);
-                    List<OrderProduct> test = new List<OrderProduct>();
-                    foreach (var product in order.OrderProducts)
-                    {
-                        test.Add(product);
-                    }
-                    List<OrderProduct> test2 = new List<OrderProduct>();
-                    OrderProduct obj = new OrderProduct { ProductId = 9, Quantity = 2 };
-                    test2.Add(obj);
-                    //List<MyType> lstObj = new List<MyType> { obj2 };
-
-                    var actualProduct = updatedOrder.OrderProducts.Find(x => x.ProductId == 7);
-                    //var testar = actualProduct.ProductId;
-                    //var test = updatedOrder.OrderProducts.Where(x => x.ProductId ==
-                    //7).Select(x => x.ProductId == 7).FirstOrDefault();
-
-                    //Assert.Contains(obj, test);
-                }
+                Assert.NotNull(order);
+                Assert.NotEqual<Guid>(Guid.Empty, orderId);
+            }
+        }
+        [Fact]
+        public async Task GetEmptyGuid_Returns_NotFound()
+        {
+            using (var client = new TestClientProvider().Client)
+            {
+                var response = await client.GetAsync($"/api/orders/{Guid.Empty}");
+                Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
             }
         }
 
@@ -174,7 +168,6 @@ namespace OrdersService.Tests
             {
                 var order = _fixture.Order;
                 var orderProduct = _fixture.OrderProduct;
-
 
                 order.OrderProducts.Add(new OrderProduct { ProductId = 7, Quantity = 3 });
 
@@ -191,22 +184,36 @@ namespace OrdersService.Tests
                     await client.DeleteAsync("/api/orders/delete/" + updatedOrder.Id);
 
                     var actualProduct = updatedOrder.OrderProducts.Find(x => x.ProductId == 7);
-                    //var testar = actualProduct.ProductId;
 
-                    //var test = updatedOrder.OrderProducts.Where(x => x.ProductId ==
-                    //7).Select(x => x.ProductId == 7).FirstOrDefault();
                     Assert.Equal(7, actualProduct.ProductId);
                 }
+            }
+        }
+        [Fact]
+        public async Task PostOrder_Returns_Ok()
+        {
+            var order = new Order
+            {
+                UserId = Guid.NewGuid().ToString(),
+                OrderProducts = new List<OrderProduct> { new OrderProduct { ProductId = 2, Quantity = 4 } },
+                TotalPrice = 299.00M
+            };
+            using (var client = new TestClientProvider().Client)
+            {
+                var payload = JsonSerializer.Serialize(order);
+                HttpContent content = new StringContent(payload, Encoding.UTF8, "application/json");
 
-                //using (var responseStream = await response.Content.ReadAsStreamAsync())
-                //{
-                //    var updatedProduct = await JsonSerializer.DeserializeAsync<Product>(responseStream,
-                //        new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+                var response = await client.PostAsync($"/api/orders/post/", content);
 
-                //    Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-                //}
-
-                //Assert.Equal("Updated Test Product", product.Name);
+                using (var responseStream = await response.Content.ReadAsStreamAsync())
+                {
+                    var updatedOrder = await JsonSerializer.DeserializeAsync<Order>(responseStream,
+                        new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+                    var deleteresponse = await client.DeleteAsync($"/api/orders/{updatedOrder.Id}");
+                    Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+                    
+                }
+                var deletedOrder = await client.DeleteAsync($"/api/orders/{order.Id}");
             }
         }
     }

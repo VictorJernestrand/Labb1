@@ -17,21 +17,12 @@ namespace Labb1.Services
 
         private const string OrdersService = "https://localhost:44323/api/";
         public const string ORDERS = OrdersService + "orders/";
+        public const string POST = ORDERS + "post/";
 
         public ApiHandler(IHttpClientFactory client)
         {
             _client = client.CreateClient();
         }
-        //public List<Product> GetAllProducts()
-        //{
-        //    var allProducts = 
-        //    return allProducts = ("https://localhost:44381/api/products/");
-
-        //}
-        //public HttpClient GetClientTest()
-        //{
-        //    return _client;
-        //}
 
         public async Task<List<T>> GetAllAsync<T>(string apiPath)
         {
@@ -61,22 +52,6 @@ namespace Labb1.Services
             return null;
         }
 
-        //public async Task<T> PostAsync<T>(T obj, string webApiPath)
-        //{
-        //    var request = new HttpRequestMessage(HttpMethod.Post, webApiPath);
-
-
-        //    // Serialize object to JSON
-        //    var postJson = JsonSerializer.Serialize(obj);
-        //    request.Content = new StringContent(postJson, Encoding.UTF8, "application/json");
-
-        //    // Send and receive request
-        //    var result = await SendRequestAsync(request);
-        //    var responseString = await result.Content.ReadAsStringAsync();
-
-        //    //var payload = await DeserializeJSON<APIPayload>(responseString);
-        //    return responseString;
-        //}
         public async Task PostAsync<Order>(Order order, string webApiPath)
         {
             var postTask = _client.PostAsJsonAsync<Order>(ORDERS, order);
@@ -84,16 +59,6 @@ namespace Labb1.Services
 
             var result = postTask.Result;
         }
-        //public async Task<List<Order>> GetAllOrders()
-        //{
-        //    var result = await GetAllAsync<Order>(ORDERS);
-        //    var products = await GetAllAsync<Product>(PRODUCTS);
-
-        //    foreach (var test in result)
-        //    {
-        //        test.OrderProducts
-        //    }
-        //}
 
         private async Task<HttpResponseMessage> SendRequestAsync(HttpRequestMessage request)
         {

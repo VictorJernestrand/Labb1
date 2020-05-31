@@ -8,7 +8,6 @@ namespace OrdersService.Models
 {
     public class Product
     {
-        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }

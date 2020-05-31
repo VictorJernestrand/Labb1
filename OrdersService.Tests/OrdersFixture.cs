@@ -11,8 +11,6 @@ namespace OrdersService.Tests
 {
     public class OrdersFixture : IDisposable
     {
-        //private OrderProduct op;
-
         public Order Order { get; private set; }
         public OrderProduct OrderProduct { get; private set; }
         public OrdersFixture()
@@ -25,15 +23,10 @@ namespace OrdersService.Tests
             using (var client = new TestClientProvider().Client)
             {
                 var payload = JsonSerializer.Serialize(
-                    //op = new OrderProduct()
-                    //{
-                    //    ProductId = 5,
-                    //    Quantity = 1
-                    //}
                     new Order()
                     {
                         TotalPrice = 199,
-                        UserId = "", /*"9f2a7eaf-0331-45fb-9c46-2fe5e6caa367",*/
+                        UserId = Guid.NewGuid().ToString(),
                         OrderProducts = new List<OrderProduct>()
                         {
                             new OrderProduct { ProductId = 5, Quantity = 1 }
@@ -41,7 +34,7 @@ namespace OrdersService.Tests
                     }) ; 
                 HttpContent content = new StringContent(payload, Encoding.UTF8, "application/json");
 
-                var response = await client.PostAsync($"/api/orders/create", content);
+                var response = await client.PostAsync($"/api/orders/post", content);
 
                 using (var responseStream = await response.Content.ReadAsStreamAsync())
                 {
