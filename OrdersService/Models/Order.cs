@@ -1,23 +1,21 @@
-﻿using Labb1.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Labb1.Models
+namespace OrdersService.Models
 {
     public class Order
     {
         public Order()
         {
             this.OrderDate = DateTime.Now;
-            OrderProducts = new List<OrderProduct>();
         }
+        public Guid Id { get; set; }
         public DateTime OrderDate { get; set; }
-        //public Guid UserId { get; set; }
-        public ApplicationUser User { get; set; }
-        public string UserId { get; set; }
         public List<OrderProduct> OrderProducts { get; set; }
         public decimal TotalPrice { get; set; }
+        public string UserId { get; set; }
     }
 }

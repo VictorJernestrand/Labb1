@@ -15,7 +15,7 @@
 
 @if (Model != null && Model.CartItems.Count() > 0)
 {
-    using (Html.BeginForm("ConfirmOrder", "Cart", FormMethod.Post))
+    using (Html.BeginForm("Index", "Order", FormMethod.Post))
     {
         <table id="test" class="table table-responsive-xs table-responsive-sm border-top-0 border-left-0 border-right-0 mx-auto">
             <thead class="border-bottom-0">
