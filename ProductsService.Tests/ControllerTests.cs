@@ -41,6 +41,7 @@ namespace ProductsService.Tests
         {
             using (var client = new TestClientProvider().Client)
             {
+                client.DefaultRequestHeaders.Add("ApiKey", "FishermansWebshopProductsApiKey");
                 var response = await client.GetAsync("/api/products/");
 
                 response.EnsureSuccessStatusCode();
@@ -139,6 +140,7 @@ namespace ProductsService.Tests
         {
             using (var client = new TestClientProvider().Client)
             {
+                client.DefaultRequestHeaders.Add("ApiKey", "FishermansWebshopProductsApiKey");
                 var response = await client.GetAsync("/api/products");
                 var productResponse = await response.Content.ReadAsStringAsync();
                 var allProducts = JsonSerializer.Deserialize<IEnumerable<Product>>(productResponse);

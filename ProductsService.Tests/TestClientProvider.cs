@@ -28,6 +28,7 @@ namespace ProductsService.Tests
             options.UseSqlServer(configuration.GetConnectionString("SqlDatabase"))));
 
             webHostBuilder.UseStartup<Startup>();
+            webHostBuilder.UseConfiguration(configuration);
 
             Server = new TestServer(webHostBuilder);
 
