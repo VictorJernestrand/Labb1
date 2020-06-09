@@ -13,5 +13,13 @@ namespace Labb1.Data
             : base(options)
         {
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<ApplicationUser>()
+                .Ignore(p => p.PhoneNumber)
+                .Ignore(p => p.PhoneNumberConfirmed);
+        }
     }
 }
