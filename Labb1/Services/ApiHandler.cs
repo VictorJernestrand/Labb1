@@ -1,4 +1,5 @@
 ﻿using Labb1.Models;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,8 @@ namespace Labb1.Services
     public class ApiHandler
     {
         public HttpClient _client { get; set; }
+        private readonly IConfiguration _config;
+        private readonly string apiRootUrl;
         private const string ProductsService = "https://localhost:44381/api/";
         public const string PRODUCTS = ProductsService + "products/";
 
@@ -19,14 +22,18 @@ namespace Labb1.Services
         public const string ORDERS = OrdersService + "orders/";
         public const string POST = ORDERS + "post/";
 
-        public ApiHandler(IHttpClientFactory client)
+        public ApiHandler(IHttpClientFactory client, IConfiguration config)
         {
             _client = client.CreateClient();
+            _config = config;
+            apiRootUrl = _config.GetValue(typeof(string), "ProductApiRoot").ToString();
         }
 
         public async Task<List<T>> GetAllAsync<T>(string apiPath)
         {
             var request = new HttpRequestMessage(HttpMethod.Get, apiPath);
+            var productApiKey = _config.GetValue<string>("ApiKeys:ProductApiKey");
+            request.Headers.Add("ApiKey", productApiKey);
 
             var response = await _client.SendAsync(request);
 
@@ -69,6 +76,9 @@ namespace Labb1.Services
         {
             request.Headers.Add("Accept", "application/json");
             request.Headers.Add("User-Agent", "WebApp");
+
+            var productApiKey = _config.GetValue<string>("ApiKeys:ProductApiKey");
+            request.Headers.Add("ApiKey", productApiKey);
             return request;
         }
 

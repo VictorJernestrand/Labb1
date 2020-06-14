@@ -23,6 +23,7 @@ namespace ProductsService.Tests
         {
             using (var client = new TestClientProvider().Client)
             {
+                client.DefaultRequestHeaders.Add("ApiKey", "FishermansWebshopProductsApiKey");
                 var productResponse = await client.GetAsync($"/api/products/{_fixture.Product.Id}");
 
                 using (var responseStream = await productResponse.Content.ReadAsStreamAsync())
@@ -41,6 +42,7 @@ namespace ProductsService.Tests
         {
             using (var client = new TestClientProvider().Client)
             {
+                client.DefaultRequestHeaders.Add("ApiKey", "FishermansWebshopProductsApiKey");
                 var response = await client.GetAsync("/api/products/");
 
                 response.EnsureSuccessStatusCode();
@@ -54,6 +56,7 @@ namespace ProductsService.Tests
         {
             using (var client = new TestClientProvider().Client)
             {
+                client.DefaultRequestHeaders.Add("ApiKey", "FishermansWebshopProductsApiKey");
                 var response = await client.GetAsync("/api/products/" + 999);
                 Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
             }
@@ -73,6 +76,7 @@ namespace ProductsService.Tests
         {
             using (var client = new TestClientProvider().Client)
             {
+                client.DefaultRequestHeaders.Add("ApiKey", "FishermansWebshopProductsApiKey");
                 var response = await client.GetAsync("/api/products/" + 1);
                 response.EnsureSuccessStatusCode();
                 Assert.Equal(HttpStatusCode.OK, response.StatusCode);
@@ -84,6 +88,7 @@ namespace ProductsService.Tests
         {
             using (var client = new TestClientProvider().Client)
             {
+                client.DefaultRequestHeaders.Add("ApiKey", "FishermansWebshopProductsApiKey");
                 var orderResponse = await client.GetAsync($"/api/products/{1}");
 
                 using (var responseStream = await orderResponse.Content.ReadAsStreamAsync())
@@ -102,6 +107,7 @@ namespace ProductsService.Tests
         {
             using (var client = new TestClientProvider().Client)
             {
+                client.DefaultRequestHeaders.Add("ApiKey", "FishermansWebshopProductsApiKey");
                 var productId = _fixture.Product.Id;
 
                 var response = await client.GetAsync("/api/products/" + productId);
@@ -139,6 +145,7 @@ namespace ProductsService.Tests
         {
             using (var client = new TestClientProvider().Client)
             {
+                client.DefaultRequestHeaders.Add("ApiKey", "FishermansWebshopProductsApiKey");
                 var response = await client.GetAsync("/api/products");
                 var productResponse = await response.Content.ReadAsStringAsync();
                 var allProducts = JsonSerializer.Deserialize<IEnumerable<Product>>(productResponse);
@@ -147,7 +154,7 @@ namespace ProductsService.Tests
                 {
                     actualProducts.Add(product);
                 }
-                Assert.Equal(16, actualProducts.Count);
+                Assert.Equal(17, actualProducts.Count);
             }
         }
 

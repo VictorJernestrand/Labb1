@@ -15,6 +15,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Labb1.Models;
 using Labb1.Services;
+using Microsoft.AspNetCore.Http;
 
 namespace Labb1
 {
@@ -30,6 +31,11 @@ namespace Labb1
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
             services.AddTransient<ApiHandler>();
             services.AddCors(options =>
             {
@@ -83,6 +89,7 @@ namespace Labb1
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseCookiePolicy();
 
             app.UseRouting();
             app.UseCors();

@@ -129,8 +129,15 @@ body {
     vertical-align: middle;
     text-align: center;
 }
+#cookieConsent {
+    display: flex;
+    flex-direction: column;
+}
+.accept-policy {
+    display: flex;
+    flex-direction: column;
+}
 @media (max-width: 574px) {
-
     .containerHeader {
         display: flex;
         flex-direction: column;
