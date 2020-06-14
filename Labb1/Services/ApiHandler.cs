@@ -32,6 +32,8 @@ namespace Labb1.Services
         public async Task<List<T>> GetAllAsync<T>(string apiPath)
         {
             var request = new HttpRequestMessage(HttpMethod.Get, apiPath);
+            var productApiKey = _config.GetValue<string>("ApiKeys:ProductApiKey");
+            request.Headers.Add("ApiKey", productApiKey);
 
             var response = await _client.SendAsync(request);
 

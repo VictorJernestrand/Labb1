@@ -11,9 +11,11 @@
     <div id="cookieConsent" class="alert alert-info alert-dismissible fade show" role="alert">
         <b style="margin-bottom:0">Information om cookies</b>
         <p style="margin-top:0; margin-bottom:0"></p>
-        Fiskebutiken.se använder cookies för att ge dig en bättre kundupplevelse. 
-        Genom att fortsätta använda webbplatsen godkänner du användandet av cookies. 
-        <a asp-area="" asp-controller="Home" asp-action="Privacy">Läs mer om cookies</a>.
+        <p id="testP">
+            Fiskebutiken.se använder cookies för att ge dig en bättre kundupplevelse.
+            Genom att fortsätta använda webbplatsen godkänner du användandet av cookies.
+        </p>
+        <a asp-area="" asp-controller="Home" asp-action="Privacy">Läs mer om cookies</a>
         <button type="button" class="accept-policy close" data-dismiss="alert" aria-label="Close" data-cookie-string="@cookieString">
             <span aria-hidden="true">Jag godkänner</span>
         </button>

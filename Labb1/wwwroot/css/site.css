@@ -130,12 +130,12 @@ body {
     text-align: center;
 }
 #cookieConsent {
-    position: relative;
+    display: flex;
+    flex-direction: column;
 }
 .accept-policy {
-    position: absolute;
-    bottom: 0;
-    margin-top: 45px;
+    display: flex;
+    flex-direction: column;
 }
 @media (max-width: 574px) {
     .containerHeader {
