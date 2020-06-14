@@ -154,7 +154,7 @@ namespace ProductsService.Tests
                 {
                     actualProducts.Add(product);
                 }
-                Assert.Equal(17, actualProducts.Count);
+                Assert.Equal(16, actualProducts.Count);
             }
         }
 
