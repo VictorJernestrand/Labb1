@@ -1,0 +1,94 @@
+﻿@model IEnumerable<Labb1.Models.Product>
+
+@{
+    ViewData["Title"] = "SearchedProducts";
+}
+
+@if (TempData["ResultCountMessage"] != null)
+
+{
+    <div class="alert alert-success">
+        @TempData["ResultCountMessage"]
+    </div>
+}
+
+<div id="product-detail" class="row flex-row d-flex justify-content-around align-content-around flex-wrap">
+    @foreach (var item in Model)
+    {
+        <div class="card flex-grow-0 flex-shrink-1-m" style="position: relative; margin-bottom:20px">
+            <div class="row no-gutters">
+                <div class="col-auto">
+                    <div class="black-tooltip" data-toggle="tooltip" title="@item.Description"><img class="thumbnail" style="background-image: url('@item.ImageURL')"></div>
+                </div>
+                <div class="col" style="max-width: 150px; min-width: 150px">
+                    <div class="card-block px-2" style="max-width: 175px; min-width: 175px">
+                        <h4 class="card-title">@item.Name</h4>
+                        <div class="d-inline-block" style="position: absolute; bottom: 0; margin-left:0px">
+                            <div style="display:flex">
+                                <div id="price" class="price" style="max-width: 60px">
+                                    @item.Price.ToString("C0")
+                                    <span id="infoBtn">
+                                        <a style="margin-left: 5px" asp-controller="Product" asp-action="ProductDetail" asp-route-id="@item.Id"><i class="fas fa-info-circle"></i></a>
+                                    </span>
+                                </div>
+                                <div id="buyBtn2" style="float:right; margin-left: 20px;">
+                                    <button id="buyBtn" class="btn btn-success" onclick="AddToCart('@item.Id')"><span class="button-text">Köp</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+</div>
+
+
+@*<h1>SearchedProducts</h1>
+
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ImageURL)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ImageURL)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>*@

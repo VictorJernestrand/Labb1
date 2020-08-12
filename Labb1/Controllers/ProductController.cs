@@ -34,6 +34,21 @@ namespace Labb1.Controllers
             return View(allProducts);
         }
 
+        public async Task<IActionResult> SearchedProducts(string searchString)
+        {
+            var result = await _api.GetAllAsync<Product>(ApiHandler.PRODUCTS);
+            //var result = from m in _api.GetAllAsync<Product>(ApiHandler.PRODUCTS).Result
+            //             select m;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                result = result.Where(s => s.Name.ToLower().Contains(searchString.ToLower())).ToList();
+                TempData["ResultCountMessage"] = $"Din sökning gav {result.Count()} träffar.";
+            }
+            
+            return View(result);
+        }
+
         public async Task<IActionResult> ProductDetail(int id)
         {
             //var product = _dummyData.Products.FirstOrDefault(x => x.Id == id);

@@ -21,5 +21,6 @@ namespace Labb1.Data
                 .Ignore(p => p.PhoneNumber)
                 .Ignore(p => p.PhoneNumberConfirmed);
         }
+        public DbSet<Labb1.Models.Product> Product { get; set; }
     }
 }

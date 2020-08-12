@@ -35,6 +35,14 @@
                             </div>
                         </a>
                     </div>
+                    <div>
+                        <form asp-controller="Product" asp-action="SearchedProducts">
+                            <p>
+                                Produkt: <input type="text" name="SearchString">
+                                <input type="submit" value="Filter" />
+                            </p>
+                        </form>
+                    </div>
 
                     <div class="navbar-nav flex-grow-1">
                         <div id="product-button">
